@@ -1,0 +1,6 @@
+
+.bg-movie-theater {
+  background-image: url('./assets/loginbackground.jpg');
+  background-size: cover;
+  background-position: center;
+}
