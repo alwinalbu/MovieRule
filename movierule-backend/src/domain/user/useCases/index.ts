@@ -4,3 +4,6 @@ export * from './IVerifyOtpUseCase'
 export * from './IFindUserByEmailUseCase';
 export * from './IFindUserByIdUseCase';
 export * from './IUpdateUserPasswordUseCase';
+export * from './IUserGetMoviesUseCase';
+export * from './IGetAllShowUseCase';
+export * from './IGetShowsByMovieUseCase';

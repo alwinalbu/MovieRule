@@ -1,145 +1,158 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import NavBar from "./UserNavBar";
+import { commonRequest } from "../../../config/api";
+import { config } from "../../../config/constants";
+import YouTube from "react-youtube";
+import { Link } from "react-router-dom";
+
 
 const LandingPage: React.FC = () => {
+  const [movies, setMovies] = useState<any[]>([]);
+  const [error, setError] = useState<string>("");
+  const [selectedTrailer, setSelectedTrailer] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await commonRequest(
+          "GET",
+          "/theater/get-Movies",
+          config
+        );
+        const moviesData = response.data.data;
+
+        // Fetch trailer keys for each movie
+        const moviesWithTrailers = await Promise.all(
+          moviesData.map(async (movie: any) => {
+            const trailerResponse = await fetch(
+              `https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=2a1ba4f836ae838c2fe9a42ef94af264&language=en-US`
+            );
+            const trailerData = await trailerResponse.json();
+            const trailer = trailerData.results.find(
+              (video: any) => video.type === "Trailer"
+            );
+
+            return {
+              ...movie,
+              trailerKey: trailer ? trailer.key : null,
+            };
+          })
+        );
+
+        setMovies(moviesWithTrailers);
+      } catch (err) {
+        setError("Failed to fetch movies");
+        console.error("Failed to fetch movies", err);
+      }
+    };
+
+    fetchMovies();
+  }, []);
+
+  const handlePosterClick = (trailerKey: string | null) => {
+    if (trailerKey) {
+      setSelectedTrailer(trailerKey);
+    }
+  };
+
+  const closeTrailer = () => {
+    setSelectedTrailer(null);
+  };
+
   return (
     <div className="bg-black text-white">
       <header className="bg-gray-900 py-4">
-        <nav className="container mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            <img src="/src/assets/logo-new.png" alt="Logo" className="h-10" />
-            <ul className="flex space-x-4">
-              <li>
-                <NavLink to="/" className="hover:text-gray-300">
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/stream" className="hover:text-gray-300">
-                  Stream
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/about" className="hover:text-gray-300">
-                  About
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/contact" className="hover:text-gray-300">
-                  Contact Us
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-          <NavLink
-            to="/login"
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400"
-          >
-            Login
-          </NavLink>
-        </nav>
+        <NavBar />
       </header>
 
       <main className="container mx-auto py-8">
-        <section
-          className="bg-cover bg-center relative"
-          style={{ backgroundImage: "url('kung-fu-panda.jpg')" }}
-        >
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-          <div className="relative z-10 p-8">
-            <h1 className="text-5xl font-bold">Kung Fu Panda 4</h1>
-            <p className="mt-4 text-lg">2024 • Comedy • 1hr 34m</p>
-            <div className="mt-6">
-              <button className="bg-purple-600 text-white px-4 py-2 rounded mr-2 hover:bg-purple-500">
-                Watch Trailer
-              </button>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500">
-                Book Now
-              </button>
-            </div>
+        {selectedTrailer ? (
+          <div className="relative bg-cover bg-center h-96">
+            <YouTube
+              videoId={selectedTrailer}
+              opts={{
+                playerVars: {
+                  autoplay: 1,
+                  fs: 1,
+                },
+              }}
+              className="absolute inset-0 w-full h-full"
+            />
+            <button
+              onClick={closeTrailer}
+              className="absolute top-2 right-2 bg-gray-800 text-white px-2 py-1 rounded hover:bg-gray-700"
+            >
+              Close
+            </button>
           </div>
-        </section>
-
+        ) : (
+          <Carousel
+            showArrows={true}
+            infiniteLoop={true}
+            autoPlay={true}
+            interval={5000}
+            showIndicators={false}
+            showThumbs={false}
+            className="bg-cover bg-center relative"
+          >
+            {movies.map((movie) => (
+              <div
+                key={movie.id}
+                onClick={() => handlePosterClick(movie.trailerKey)}
+              >
+                <img src={movie.backdrop_path} alt={movie.title} />
+                <div className="absolute inset-0 bg-black opacity-50"></div>
+                <div className="relative z-10 p-8">
+                  <h1 className="text-5xl font-bold">{movie.title}</h1>
+                  <p className="mt-4 text-lg">
+                    {movie.releaseDate} • {movie.genre} • {movie.duration}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </Carousel>
+        )}
         <section className="mt-8">
           <h2 className="text-2xl font-semibold">Running</h2>
           <div className="grid grid-cols-4 gap-4 mt-4">
             {movies.map((movie) => (
-              <div key={movie.id} className="bg-gray-800 p-4 rounded">
-                <img
-                  src={movie.poster}
-                  alt={movie.title}
-                  className="h-64 w-full object-cover rounded mb-2"
-                />
-                <h3 className="text-lg font-bold">{movie.title}</h3>
-                <p className="mt-1">
-                  {movie.rating}/10 • {movie.votes} Votes
-                </p>
-              </div>
+              <Link to={`/movie/${movie.id}`} key={movie.id}>
+                <div
+                  className="bg-gray-800 rounded overflow-hidden"
+                  style={{ height: "400px" }}
+                >
+                  {movie?.posterPath ? (
+                    <img
+                      src={movie.posterPath}
+                      alt={`Poster of ${movie.title}`}
+                      className="h-3/4 w-full object-cover"
+                    />
+                  ) : (
+                    <div className="h-3/4 w-full bg-gray-200 flex items-center justify-center">
+                      <span>No poster available</span>
+                    </div>
+                  )}
+                  <div className="h-1/4 p-4">
+                    <h3 className="text-lg font-bold">{movie.title}</h3>
+                    <p className="mt-1">
+                      {movie.rating}/10 • {movie.votes} Votes
+                    </p>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
         </section>
+
+        {error && <p className="text-red-500 mt-4">{error}</p>}
       </main>
     </div>
   );
 };
 
-const movies = [
-  {
-    id: 1,
-    title: "TURBO",
-    poster: "turbo.jpg",
-    rating: 8.4,
-    votes: "4.8K",
-  },
-  {
-    id: 2,
-    title: "THALLUMALA",
-    poster: "thallumala.jpg",
-    rating: 8.6,
-    votes: "3.5K",
-  },
-  {
-    id: 3,
-    title: "Guivusayoorumoodu Nasdy",
-    poster: "guivusayoorumoodu.jpg",
-    rating: 7.8,
-    votes: "5.4K",
-  },
-  {
-    id: 4,
-    title: "Golam",
-    poster: "golam.jpg",
-    rating: 8.9,
-    votes: "3.2K",
-  },
-  {
-    id: 5,
-    title: "Bad Boys Ride or Die",
-    poster: "badboys.jpg",
-    rating: 7.3,
-    votes: "1.3K",
-  },
-  {
-    id: 6,
-    title: "Furious A New Mod Saga",
-    poster: "furious.jpg",
-    rating: 8.4,
-    votes: "2.4K",
-  },
-  {
-    id: 7,
-    title: "Inside Out 2",
-    poster: "insideout2.jpg",
-    rating: 9.2,
-    votes: "2.7K",
-  },
-  {
-    id: 8,
-    title: "Deadpool 4 Wolverine",
-    poster: "deadpool4.jpg",
-    rating: 9.8,
-    votes: "4.1K",
-  },
-];
-
 export default LandingPage;
+
+
+

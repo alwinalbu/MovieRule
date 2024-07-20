@@ -1,4 +1,3 @@
-import { comparePassword } from "@/utils/bcrypt";
 import { IAdminDependencies } from "../interfaces/IAdminDependencies";
 
 export const loginAdminUseCase = (dependencies:IAdminDependencies) => {

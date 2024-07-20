@@ -9,7 +9,9 @@ export const theaterLoginController = (dependencies: ITheaterDependencies) => {
 
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
+
       const { email, password } = req.body;
+      
 
       if (!email || !password) {
         return res
@@ -22,9 +24,14 @@ export const theaterLoginController = (dependencies: ITheaterDependencies) => {
         password
       );
 
-      if (!theater) {
-        return res.status(401).json({ message: "Invalid credentials" });
-      }
+       if (theater?.status !== "active") {
+         return res.status(403).json({ message: "You are not approved yet" });
+       }
+
+
+        if (!theater) {
+          return res.status(401).json({ message: "Invalid credentials" });
+        }
 
       // Ensure theater properties exist before generating tokens
       const theaterId = theater._id?.toString();
@@ -50,7 +57,7 @@ export const theaterLoginController = (dependencies: ITheaterDependencies) => {
         role: theaterRole,
       });
 
-      // Set cookies with tokens
+     
       res.cookie("access_token", accessToken, {
         httpOnly: true,
       });
@@ -64,7 +71,7 @@ export const theaterLoginController = (dependencies: ITheaterDependencies) => {
         data: theater,
       });
     } catch (error: any) {
-      console.error("Login error:", error); // Log error for debugging
+      console.error("Login error:", error); 
       return res
         .status(500)
         .json({ message: error.message || "Internal Server Error" });

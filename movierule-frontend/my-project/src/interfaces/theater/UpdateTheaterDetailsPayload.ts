@@ -4,5 +4,6 @@ export interface UpdateTheaterDetailsPayload {
   email: string;
   oldPassword?: string;
   password?: string;
+  city?: string | null;
   profilePic?: File | null;
 }

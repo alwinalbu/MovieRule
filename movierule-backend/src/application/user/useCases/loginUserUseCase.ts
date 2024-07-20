@@ -15,6 +15,10 @@ export const loginUserUseCase = (dependencies:IDependencies) => {
           throw new Error("User not found");
         }
 
+        if (user.status === "blocked") {
+          throw new Error("Sorry, Your Account is Blocked");
+        }
+
         const isPasswordValid = await comparePassword(password, user.password);
         if (!isPasswordValid) {
           throw new Error("Invalid credentials");

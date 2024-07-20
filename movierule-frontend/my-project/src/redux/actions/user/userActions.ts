@@ -168,6 +168,7 @@ export const updateUserDetails = createAsyncThunk(
       oldPassword,
       password,
       profilePic,
+      city,
     }: UpdateUserDetailsPayload,
     { rejectWithValue }
   ) => {
@@ -183,11 +184,13 @@ export const updateUserDetails = createAsyncThunk(
         ...(oldPassword && { oldPassword }),
         ...(password && { password }),
         ...(profilePicUrl && { profilePic: profilePicUrl }),
+        ...(city && { city }),
       };
 
       const { data } = await axios.put(
         `${URL}/updateUser/${userId}`,
-        updatedUserData
+        updatedUserData,
+        config
       );
       console.log(data.user, "uderdeatils after udpadte inside actions");
 
@@ -202,25 +205,25 @@ export const updateUserDetails = createAsyncThunk(
   }
 );
 
-//Forget Password 
+//Forget Password
 
-export const forgetPassword= createAsyncThunk(
-  'forget/password',
-  async(email:string,{rejectWithValue})=>{
-
+export const forgetPassword = createAsyncThunk(
+  "forget/password",
+  async (email: string, { rejectWithValue }) => {
     try {
-      const {data}=await axios.post(`${URL}/forgetpassword`,{email},config)
+      const { data } = await axios.post(
+        `${URL}/forgetpassword`,
+        { email },
+        config
+      );
 
       console.log("🚀 ~ inside forget password data from backend", data);
       return data;
-    } catch (error:any) {
+    } catch (error: any) {
       return rejectWithValue("Failed to reset password");
     }
   }
-)
-
-
-
+);
 
 //LOGOUT
 

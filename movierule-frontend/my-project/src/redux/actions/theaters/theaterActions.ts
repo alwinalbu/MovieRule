@@ -126,36 +126,31 @@ export const updateTheaterDetails = createAsyncThunk(
       oldPassword,
       password,
       profilePic,
+      city, 
     }: UpdateTheaterDetailsPayload,
     { rejectWithValue }
   ) => {
     try {
-      console.log(theaterId, "inside the update async thunk theater id");
-
       let profilePicUrl = null;
       if (profilePic) {
         profilePicUrl = await ImageUpload(profilePic);
       }
-
-      console.log(
-        profilePicUrl,
-        "profile pic url in theater actions update deatils"
-      );
 
       const updatedTheaterData: Partial<TheaterEntity> = {
         username,
         email,
         ...(oldPassword && { oldPassword }),
         ...(password && { password }),
-        ...(profilePicUrl && { profilePicture: profilePicUrl }), // Adjust this based on your TheaterEntity structure
+        ...(profilePicUrl && { profilePicture: profilePicUrl }),
+        ...(city && { city }),
       };
 
       const { data } = await axios.put(
         `${URL}/theater/updateTheater/${theaterId}`,
-        updatedTheaterData
+        updatedTheaterData,
+        config
       );
 
-      console.log(data.theater, "DETAILS after udpadte inside actions");
       return data.theater;
     } catch (error: any) {
       if (error.response && error.response.data) {

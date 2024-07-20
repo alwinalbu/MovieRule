@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -14,30 +13,30 @@ export const TheaterProfile: React.FC = () => {
   const [password, setPassword] = useState("");
   const [profilePic, setProfilePic] = useState<File | null>(null);
   const [profilePicture, setProfilePicture] = useState<any>(undefined);
+  const [city, setCity] = useState("");
   const [editMode, setEditMode] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false); 
-  
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
- const { theaterOwner, error: reduxError } = useSelector(
-   (state: RootState) => state.theater
- );
+  const { theaterOwner, error: reduxError } = useSelector(
+    (state: RootState) => state.theater
+  );
 
-  
   useEffect(() => {
     if (theaterOwner) {
       setUsername(theaterOwner.username || "");
       setEmail(theaterOwner.email || "");
-      setProfilePicture(theaterOwner.profilePicture); 
+      setProfilePicture(theaterOwner.profilePicture);
+      setCity(theaterOwner.city || ""); // Set city if available
     }
   }, [theaterOwner]);
 
- useEffect(() => {
-   if (reduxError) {
-     toast.error(reduxError as string);
-   }
- }, [reduxError]);
- 
+  useEffect(() => {
+    if (reduxError) {
+      toast.error(reduxError as string);
+    }
+  }, [reduxError]);
+
   const handleOldPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOldPassword(e.target.value);
   };
@@ -53,22 +52,23 @@ export const TheaterProfile: React.FC = () => {
   };
 
   const handleSave = () => {
-      dispatch(
-        updateTheaterDetails({
-          theaterId: theaterOwner?._id,
-          username,
-          email,
-          oldPassword,
-          password,
-          profilePic,
-        })
-      ).then((res) => {
-        if (res.type && res.type.endsWith("fulfilled")) {
-          toast.success("Profile updated successfully");
-        } else {
-          toast.error("Failed to update profile");
-        }
-      });
+    dispatch(
+      updateTheaterDetails({
+        theaterId: theaterOwner?._id,
+        username,
+        email,
+        oldPassword,
+        password,
+        profilePic,
+        city, // Include city in the update payload
+      })
+    ).then((res) => {
+      if (res.type && res.type.endsWith("fulfilled")) {
+        toast.success("Profile updated successfully");
+      } else {
+        toast.error("Failed to update profile");
+      }
+    });
     setEditMode(false);
   };
 
@@ -196,6 +196,20 @@ export const TheaterProfile: React.FC = () => {
             />
           </div>
 
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              City
+            </label>
+            <input
+              type="text"
+              value={city}
+              disabled={!editMode}
+              onChange={(e) => setCity(e.target.value)}
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+          </div>
+
+
           {/* Change Password */}
           {editMode && (
             <>
@@ -264,4 +278,3 @@ export const TheaterProfile: React.FC = () => {
     </div>
   );
 };
-

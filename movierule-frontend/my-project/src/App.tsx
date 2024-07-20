@@ -25,6 +25,21 @@ import ResetPassword from "./component/pages/user-pages/ResetPassword";
 import TheaterForgetPassword from "./component/pages/theater-pages/TheaterForgetPassword";
 import TheaterResetPassword from "./component/pages/theater-pages/TheaterResetPassword";
 import NotAuthorized from "./component/pages/NotAuthorized";
+import NotFound from "./component/pages/NotFound";
+import TheatresList from "./component/pages/admin-pages/TheatresListAdmin";
+import UsersList from "./component/pages/admin-pages/UsersListAdmin";
+import AdminAddMovie from "./component/pages/admin-pages/AdminAddMovie";
+import MovieDetail from "./component/Movies/MovieDetailView";
+import AddMovieTmdbList from "./component/pages/admin-pages/AddMovieTMDBlist";
+import TheaterMoviesList from "./component/pages/admin-pages/TheaterMoviesList";
+import OTTMoviesList from "./component/pages/admin-pages/OTTMoviesList";
+import SeatSelection from "./component/seat/SeatSelection";
+import CreateShows from "./component/pages/theater-pages/CreateShows";
+import LandingPageMovieDetails from "./component/Movies/LandingPageMovieDetails";
+import TheatreScreenAddList from "./component/pages/theater-pages/TheaterScreenAddList";
+import TheatreSeatLayoutEdit from "./component/pages/theater-pages/TheatreSeatLayoutEdit";
+import BookingPage from "./component/pages/user-pages/BookingPage";
+
 
 
 interface IProtectedRoute {
@@ -66,11 +81,15 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/movie/:movieId" element={<LandingPageMovieDetails />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="booking/movie/:movie_id" element={<BookingPage/>}/>
+          {/* <Route path="/book-movies" element={<BookingPage />} /> */}
           <Route path="/forgetpassword" element={<ForgetPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/verify-otp" element={<VerifyOTP />} />
+
           <Route
             path="/homepage"
             element={<ProtectedRoute element={<HomePage />} role="user" />}
@@ -97,6 +116,16 @@ function App() {
               <ProtectedRoute element={<TheaterDashboard />} role="theatre" />
             }
           />
+
+          <Route path="/theater/create-shows" element={<CreateShows />} />
+          <Route
+            path="/theater/create-screen"
+            element={<TheatreScreenAddList />}
+          />
+          <Route
+            path="/theatre/screens/edit-layout/:screenId"
+            element={<TheatreSeatLayoutEdit />}
+          />
           <Route
             path="/theater/theaterprofile"
             element={
@@ -109,7 +138,32 @@ function App() {
             element={<ProtectedRoute element={<Adminhome />} role="admin" />}
           />
           <Route path="/admin/login" element={<AdminLogin />} />
+
+          <Route
+            path="/admin/theatres-list"
+            element={<ProtectedRoute element={<TheatresList />} role="admin" />}
+          />
+
+          <Route
+            path="/admin/users-list"
+            element={<ProtectedRoute element={<UsersList />} role="admin" />}
+          />
+
+          <Route path="/admin/add-movie" element={<AdminAddMovie />} />
+          <Route path="/admin/movie/:movieId" element={<MovieDetail />} />
+          <Route
+            path="/admin/available-Movie-list"
+            element={<AddMovieTmdbList />}
+          />
+
+          <Route path="/admin/theatre-movies" element={<TheaterMoviesList />} />
+          <Route path="/admin/OTT-movies" element={<OTTMoviesList />} />
+
+          <Route path="/seat" element={<SeatSelection />} />
+
           <Route path="/not-authorized" element={<NotAuthorized />} />
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </Router>

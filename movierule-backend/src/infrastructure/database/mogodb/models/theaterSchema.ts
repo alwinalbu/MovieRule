@@ -1,5 +1,5 @@
 import { TheaterEntity } from "@/domain/theater/entities";
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 const theaterSchema = new Schema(
   {
@@ -48,6 +48,12 @@ const theaterSchema = new Schema(
     phone: {
       type: String,
     },
+    screen: [
+      {
+        type: Types.ObjectId,
+        ref: "Screen",
+      },
+    ],
   },
   {
     timestamps: true,

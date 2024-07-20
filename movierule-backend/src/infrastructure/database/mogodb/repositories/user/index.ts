@@ -3,4 +3,7 @@ export * from './checkEmail';
 export * from './verifyOtpRepo';
 export * from './findByEmail';
 export * from './findById';
-export * from './updateUserPassword'
+export * from './updateUserPassword';
+export * from './userGetMovies';
+export * from './getAllShows';
+export * from './getShowsByMovie';

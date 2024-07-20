@@ -8,6 +8,9 @@ import { updateUserController } from "./updateUserDetails";
 import { resendOtpController } from "./reSendOtp";
 import { forgotPasswordController } from "./forgetPassword";
 import { updatePasswordController } from "./updatePassword";
+import { UserGetMoviesListController } from "./userGetMoviesList";
+import { getAllShowListController } from "./getAllShowList";
+import { getShowsByMovieController } from "./getShowsByMovie";
 
 
 export const controllers = (dependencies: IDependencies) => {
@@ -17,10 +20,13 @@ export const controllers = (dependencies: IDependencies) => {
     loginUser: loginUserController(dependencies),
     logoutUser: logoutController(dependencies),
     googleAuth: googleAuthController(dependencies),
-    updateUserDetails:updateUserController(dependencies),
-    reSendOtp:resendOtpController(dependencies),
-    forgetPassword:forgotPasswordController(dependencies),
-    updatePassword:updatePasswordController(dependencies),
+    updateUserDetails: updateUserController(dependencies),
+    reSendOtp: resendOtpController(dependencies),
+    forgetPassword: forgotPasswordController(dependencies),
+    updatePassword: updatePasswordController(dependencies),
+    userGetMoviesList: UserGetMoviesListController(dependencies),
+    getAllShowList: getAllShowListController(dependencies),
+    getShowsByMovie:getShowsByMovieController(dependencies),
   };
 };
 

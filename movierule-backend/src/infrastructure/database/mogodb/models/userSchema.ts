@@ -33,6 +33,9 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
+    city: {
+      type: String,
+    },
     favoriteGenres: [
       {
         type: String,

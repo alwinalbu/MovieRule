@@ -9,12 +9,18 @@ export const updateTheaterController = (dependencies: ITheaterDependencies) => {
 
   return async (req: Request, res: Response, next: NextFunction) => {
     const { theaterId } = req.params;
-    const { username, oldPassword, password, profilePicture } = req.body;
+    const { username, oldPassword, password, profilePicture, city } = req.body;
 
     console.log(theaterId, username, "Theater update - starting");
 
     try {
-      // Validate presence of theaterId
+
+      console.log(req.user, "theater req inside update deatails");
+
+      if (!req.user || !req.user._id) {
+        return res.status(402).json("Authentication failed");
+      }
+      
       if (!theaterId) {
         return res.status(400).json({ error: "Missing theaterId" });
       }
@@ -57,6 +63,10 @@ export const updateTheaterController = (dependencies: ITheaterDependencies) => {
 
       if (profilePicture) {
         theater.profilePicture = profilePicture;
+      }
+
+      if (city) {
+        theater.city = city;
       }
 
       // Save updated theater

@@ -5,4 +5,5 @@ export interface UpdateUserDetailsPayload {
   password?: string;
   oldPassword?:string;
   profilePic?: File | null;
+  city?:string|null;
 }

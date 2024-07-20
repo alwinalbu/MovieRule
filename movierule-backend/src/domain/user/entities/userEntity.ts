@@ -11,6 +11,7 @@
    createdAt?: Date;
    updatedAt?: Date;
    profilePicture?:string;
+   city?:string;
  }
 
 

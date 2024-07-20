@@ -14,8 +14,9 @@ export interface TheaterEntity {
   zipCode?: string;
   phone?: string;
   role?: "theatre";
-  status?: "pending" | "active";
+  status?:string;
   createdAt?: Date;
   updatedAt?: Date;
+  screen?:ObjectId[];
 }
   

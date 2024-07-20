@@ -59,9 +59,9 @@ function TheatreVerifyOtp() {
         Swal.fire({
           icon: "success",
           title: "OTP Verified Successfully",
-          text: "You can now login.",
+          text: "Wait For The Aprroval.",
         }).then(() => {
-          navigate("/theater/dashboard");
+          navigate("/");
         });
       } catch (error: any) {
         Swal.fire({

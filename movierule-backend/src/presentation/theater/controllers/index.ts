@@ -6,6 +6,14 @@ import { verifyTheaterOtpController } from "./theaterVerifyOtp";
 import { updateTheaterController } from "./updateTheaterDetails";
 import { forgotTheaterPasswordController } from "./theaterForgetPassword";
 import { updateTheaterPasswordController } from "./updateTheaterPassword";
+import { theaterGetAllMoviesListController } from "./theaterGetAllMoviesList";
+import { theaterAddShowController } from "./theaterAddShow";
+import { theaterGetAllShowsListController } from "./theaterGetAllShowsList";
+import { theaterAddScreenController } from "./theaterAddScreen";
+import { theaterGetAllScreensController } from "./theaterGetAllScreens";
+import { theaterUpdateScreenController } from "./theaterUpdateScreen";
+import { theaterGetScreenLayoutController } from "./theaterGetScreenLayout";
+import { theaterUpdateScreenLayoutController } from "./theaterUpdateScreenLayout";
 
 
 export const theaterControllers=(dependencies:ITheaterDependencies)=>{
@@ -16,6 +24,14 @@ export const theaterControllers=(dependencies:ITheaterDependencies)=>{
       theaterLogout: theaterlogoutController(dependencies),
       updateTheaterDetails: updateTheaterController(dependencies),
       theaterForgetPassword: forgotTheaterPasswordController(dependencies),
-      updateTheaterPassword:updateTheaterPasswordController(dependencies),
+      updateTheaterPassword: updateTheaterPasswordController(dependencies),
+      theaterGetAllMoviesList: theaterGetAllMoviesListController(dependencies),
+      theaterAddShow: theaterAddShowController(dependencies),
+      theaterGetAllShowsList: theaterGetAllShowsListController(dependencies),
+      theaterAddScreen: theaterAddScreenController(dependencies),
+      theaterGetAllScreens: theaterGetAllScreensController(dependencies),
+      theaterUpdateScreen: theaterUpdateScreenController(dependencies),
+      theaterGetScreenLayout: theaterGetScreenLayoutController(dependencies),
+      theaterUpdateScreenLayout:theaterUpdateScreenLayoutController(dependencies),
     };
 };

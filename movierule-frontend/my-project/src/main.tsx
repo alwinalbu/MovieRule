@@ -5,6 +5,7 @@ import store from "./redux/store";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { clientId } from "./config/constants";
 import { Toaster } from "react-hot-toast";
+import { NextUIProvider } from "@nextui-org/react";
 
 
 if (!clientId) {
@@ -24,7 +25,9 @@ root.render(
   <GoogleOAuthProvider clientId={clientId}>
     <Provider store={store}>
       <Toaster position="top-center" />
-      <App />
+      <NextUIProvider>
+        <App />
+      </NextUIProvider>
     </Provider>
   </GoogleOAuthProvider>
 );

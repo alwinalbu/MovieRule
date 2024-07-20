@@ -5,3 +5,6 @@ export * from './loginUserUseCase';
 export * from './findUserByEmailUseCase';
 export * from './findUserByIdUseCase';
 export * from './updateUserPasswordUseCase';
+export * from './userGetMoviesUseCase';
+export * from './getAllShowsUseCase';
+export * from './getShowsByMovieUseCase';

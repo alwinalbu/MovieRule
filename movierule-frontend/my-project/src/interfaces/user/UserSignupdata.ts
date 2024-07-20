@@ -7,7 +7,8 @@ export interface UserSignupdata {
   confirmPassword?: string | null;
   otp?: string[];
   role: "user";
-  profilePicture?: string | null; // Add this line to include profile picture URL
+  profilePicture?: string | null;
+  city?:string;
 }
 
 

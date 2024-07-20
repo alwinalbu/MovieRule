@@ -1,9 +1,7 @@
 import { TheaterEntity } from "@/domain/theater/entities";
 import { Theater } from "../../models/theaterSchema";
 
-export const theaterCreate = async (
-  data: TheaterEntity
-): Promise<TheaterEntity | null> => {
+export const theaterCreate = async (data: TheaterEntity): Promise<TheaterEntity | null> => {
   try {
     console.log("Data inside the theater repository create:", data);
 

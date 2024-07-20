@@ -5,8 +5,4 @@ export interface AdminInterface {
   password: string;
   confirmPassword?: string;
   role:'admin';
-  usersList?: string[]; 
-  theaterList?: string[]; 
-  movies?: string[]; 
-  streamingMovies?: string[]; 
 }

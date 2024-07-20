@@ -1,4 +1,4 @@
-import { ICreateUserUseCase, ICheckUserEmailUseCase,IVerifyOtpUseCase, IFindUserByIdUseCase, IUpdateUserPasswordUseCase } from "@/domain/user/useCases";
+import { ICreateUserUseCase, ICheckUserEmailUseCase,IVerifyOtpUseCase, IFindUserByIdUseCase, IUpdateUserPasswordUseCase, IUserGetMoviesUseCase, IGetAllShowUseCase, IGetShowsByMovieUseCase } from "@/domain/user/useCases";
 import { IDependencies } from "./IDependencies";
 import { ILoginUserUseCase } from "@/domain/user/useCases/ILoginUserUseCase";
 import { IFindUserByEmailUseCase } from "@/domain/user/useCases/IFindUserByEmailUseCase";
@@ -11,4 +11,7 @@ export interface IUseCases {
   findUserByEmailUseCase: (dependencies: any) => IFindUserByEmailUseCase;
   findUserByIdUseCase: (dependencies: any) => IFindUserByIdUseCase;
   updateUserPasswordUseCase: (dependencies: any) => IUpdateUserPasswordUseCase;
+  userGetMoviesUseCase: (dependencies: IDependencies) => IUserGetMoviesUseCase;
+  getAllShowsUseCase: (dependencies: IDependencies) => IGetAllShowUseCase;
+  getShowsByMovieUseCase:(dependencies: IDependencies) =>IGetShowsByMovieUseCase;
 }

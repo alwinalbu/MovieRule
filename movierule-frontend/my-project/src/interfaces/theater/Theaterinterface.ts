@@ -13,7 +13,7 @@ export interface TheaterEntity {
   otp?: string[];
   profilePicture?: string | null;
   role: "theatre";
-  status: "pending";
+  status: string|null;
 }
 
 
