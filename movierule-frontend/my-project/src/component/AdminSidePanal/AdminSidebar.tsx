@@ -50,19 +50,19 @@ const AdminSidebar: React.FC = () => {
           <FaBars />
         </button>
         <img src="/src/assets/logo-new.png" alt="Logo" className="h-10" />
-        <div className="flex items-center space-x-4">
+        {/* <div className="flex items-center space-x-4">
           <input
             type="text"
             placeholder="Search..."
             className="px-4 py-2 border rounded-md bg-gray-700 border-gray-600 text-white placeholder-gray-400"
           />
           <FaUserCircle className="text-3xl text-red-500" />
-        </div>
+        </div> */}
       </header>
 
       {/* Admin Sidebar */}
       {isOpen && (
-        <div className="fixed top-0 left-0 w-64 bg-gray-800 h-full transition-transform transform md:translate-x-0">
+        <div className="fixed top-0 left-0 w-64 bg-gray-800 h-full transition-transform transform md:translate-x-0 z-50">
           <div className="flex items-center justify-between p-4">
             <img src="/src/assets/logo-new.png" alt="Logo" className="h-10" />
             <button onClick={handleCloseSidebar} className="text-white">
@@ -99,6 +99,13 @@ const AdminSidebar: React.FC = () => {
               Users List
             </NavLink>
             <NavLink
+              to="/admin/Subscribed-Users-List"
+              className="block px-4 py-2 text-sm font-medium text-gray-300 hover:bg-red-500 hover:text-white"
+              onClick={handleCloseSidebar}
+            >
+              Subscribed Users List
+            </NavLink>
+            <NavLink
               to="/admin/theatres-list"
               className="block px-4 py-2 text-sm font-medium text-gray-300 hover:bg-red-500 hover:text-white"
               onClick={handleCloseSidebar}
@@ -125,14 +132,8 @@ const AdminSidebar: React.FC = () => {
           </div>
         </div>
       )}
-
-      {/* Main content of admin dashboard */}
-      <div className={`ml-${isOpen ? "64" : "0"} p-4`}>
-        {/* Your admin dashboard content goes here */}
-      </div>
     </div>
   );
 };
 
 export default AdminSidebar;
-

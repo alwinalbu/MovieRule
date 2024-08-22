@@ -7,24 +7,119 @@ import { FormValuesOTP } from "../../../interfaces/user/FormValuesOTP";
 import { UpdateTheaterDetailsPayload } from "../../../interfaces/theater/UpdateTheaterDetailsPayload";
 import ImageUpload from "../../../component/imageUpoad/ImageUpload";
 
+// export const signUpTheater = createAsyncThunk(
+//   "theater/signUpTheater",
+//   async (theaterOwnerCredentials: TheaterEntity, { rejectWithValue }) => {
+//     try {
+//       console.log("inside theater signup action");
+
+//       console.log(theaterOwnerCredentials, "dat before theater signup");
+
+//       const { data } = await axios.post(
+//         `${URL}/theater/signup`,
+//         theaterOwnerCredentials,
+//         config
+//       );
+
+//       console.log(data, "data after theater signup ");
+
+//       return data;
+//     } catch (error: any) {
+//       if (error.response && error.response.data) {
+//         return rejectWithValue(error.response.data);
+//       } else {
+//         return rejectWithValue({ message: "Something went wrong!" });
+//       }
+//     }
+//   }
+// );
+
+//modified one 
+
+
+// export const signUpTheater = createAsyncThunk(
+//   "theater/signUpTheater",
+//   async (
+//     theaterOwnerCredentials: any & {
+//       profilePicture?: File;
+//       aadhaarCard?: File;
+//       licenseDocument?: File;
+//     },
+//     { rejectWithValue }
+//   ) => {
+//     try {
+//       console.log("inside theater signup action");
+
+//       const { profilePicture, aadhaarCard, licenseDocument, ...credentials } =
+//         theaterOwnerCredentials;
+
+//       console.log(
+//         { profilePicture, aadhaarCard, licenseDocument },
+//         "files before upload"
+//       );
+
+//       const uploads: Promise<string | null>[] = [];
+
+//       if (profilePicture) {
+//         uploads.push(ImageUpload(profilePicture));
+//       }
+//       if (aadhaarCard) {
+//         uploads.push(ImageUpload(aadhaarCard));
+//       }
+//       if (licenseDocument) {
+//         uploads.push(ImageUpload(licenseDocument));
+//       }
+
+//       const [profilePictureUrl, aadhaarCardUrl, licenseDocumentUrl] =
+//         await Promise.all(uploads);
+
+//       console.log(
+//         {
+//           profilePictureUrl,
+//           aadhaarCardUrl,
+//           licenseDocumentUrl,
+//         },
+//         "URLs after image upload"
+//       );
+
+//       const updatedCredentials: TheaterEntity = {
+//         ...credentials,
+//         profilePicture: profilePictureUrl || null,
+//         aadhaarCard: aadhaarCardUrl || null,
+//         licenseDocument: licenseDocumentUrl || null,
+//       };
+
+//       console.log(updatedCredentials, "data after image upload");
+
+//       const { data } = await axios.post(
+//         `${URL}/theater/signup`,
+//         updatedCredentials,
+//         config
+//       );
+
+//       console.log(data, "data after theater signup");
+
+//       return data;
+//     } catch (error: any) {
+//       if (error.response && error.response.data) {
+//         return rejectWithValue(error.response.data);
+//       } else {
+//         return rejectWithValue({ message: "Something went wrong!" });
+//       }
+//     }
+//   }
+// );
+
+
 export const signUpTheater = createAsyncThunk(
   "theater/signUpTheater",
-  async (theaterOwnerCredentials: TheaterEntity, { rejectWithValue }) => {
+  async (formData:any, { rejectWithValue }) => {
     try {
-      console.log("inside theater signup action");
-
-      console.log(theaterOwnerCredentials, "dat before theater signup");
-
-      const { data } = await axios.post(
-        `${URL}/theater/signup`,
-        theaterOwnerCredentials,
-        config
-      );
-
-      console.log(data, "data after theater signup ");
-
-      return data;
-    } catch (error: any) {
+      console.log(formData,"form data inside");
+      
+      const response = await axios.post(`${URL}/theater/signup`,formData,config);
+      return response.data;
+    } catch  (error: any) {
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data);
       } else {
@@ -33,6 +128,7 @@ export const signUpTheater = createAsyncThunk(
     }
   }
 );
+
 
 export const loginTheater = createAsyncThunk(
   "theater/loginTheater",
@@ -64,23 +160,67 @@ export const loginTheater = createAsyncThunk(
   }
 );
 
+// export const verifyTheaterOtp = createAsyncThunk(
+//   "theater/verifyTheaterOtp",
+//   async (
+//     { otp, email, username, password, role, status }: TheaterEntity & FormValuesOTP,
+//     { rejectWithValue }
+//   ) => {
+//     try {
+     
+//       const { data } = await axios.post(`${URL}/theater/verify-otp`,
+//         {
+//           otp,
+//           email,
+//           username,
+//           password,
+//           role,
+//           status,
+//         },
+//         config
+//       );
+
+//       console.log(
+//         data.data,
+//         "here data inside after verify-otp async thunk result"
+//       );
+
+//       return data.data;
+//     } catch (error: any) {
+//       if (error.response && error.response.data) {
+//         return rejectWithValue(error.response.data.message);
+//       } else {
+//         return rejectWithValue({ message: "Something went wrong!" });
+//       }
+//     }
+//   }
+// );
+
+
+
 export const verifyTheaterOtp = createAsyncThunk(
   "theater/verifyTheaterOtp",
   async (
-    { otp, email, username, password, role, status }: TheaterEntity & FormValuesOTP,
+    {
+      otp,
+      email,
+      username,
+      password,
+      role,
+      status,
+      OwnerName,
+      address,
+      city,
+      state,
+      zipCode,
+      phone,
+      profilePicture,
+      aadhaarCard,
+      licenseDocument,
+    }: TheaterEntity & FormValuesOTP,
     { rejectWithValue }
   ) => {
     try {
-      console.log(
-        otp,
-        email,
-        username,
-        password,
-        role,
-        status,
-        "here data inside verify otp sending to backend"
-      );
-
       const { data } = await axios.post(
         `${URL}/theater/verify-otp`,
         {
@@ -90,12 +230,17 @@ export const verifyTheaterOtp = createAsyncThunk(
           password,
           role,
           status,
+          OwnerName,
+          address,
+          city,
+          state,
+          zipCode,
+          phone,
+          profilePicture,
+          aadhaarCard,
+          licenseDocument,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        config
       );
 
       console.log(

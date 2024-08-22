@@ -13,3 +13,8 @@ export * from './ITheaterGetAllScreensUseCase';
 export * from './IUpdateScreenTheaterUseCase';
 export * from './IGetScreenLayoutUseCase';
 export * from './ITheaterUpdateScreenLayoutUseCase';
+export * from './IAddSnackTheaterUseCase';
+export * from './IFetchSnacksUseCase';
+export * from './IGetBookingsByTheaterIdUseCase';
+export * from './IGetBookingDetailsUseCase';
+export * from './IGetALLBookingsUseCase';

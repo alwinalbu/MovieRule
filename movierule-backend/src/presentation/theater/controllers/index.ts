@@ -14,6 +14,11 @@ import { theaterGetAllScreensController } from "./theaterGetAllScreens";
 import { theaterUpdateScreenController } from "./theaterUpdateScreen";
 import { theaterGetScreenLayoutController } from "./theaterGetScreenLayout";
 import { theaterUpdateScreenLayoutController } from "./theaterUpdateScreenLayout";
+import { theaterAddSnackController } from "./theaterAddSnacks";
+import { theaterGetSnacksController } from "./theaterGetSnacks";
+import { getBookingsByTheaterIdController } from "./getBookingsByTheaterId";
+import { getBookingDetailsController } from "./getBookingDetails";
+import { getALLBookingsController } from "./getAllBookings";
 
 
 export const theaterControllers=(dependencies:ITheaterDependencies)=>{
@@ -33,5 +38,10 @@ export const theaterControllers=(dependencies:ITheaterDependencies)=>{
       theaterUpdateScreen: theaterUpdateScreenController(dependencies),
       theaterGetScreenLayout: theaterGetScreenLayoutController(dependencies),
       theaterUpdateScreenLayout:theaterUpdateScreenLayoutController(dependencies),
+      theaterAddSnacks: theaterAddSnackController(dependencies),
+      theaterGetSnacks: theaterGetSnacksController(dependencies),
+      getBookingsByTheaterId: getBookingsByTheaterIdController(dependencies),
+      getBookingDetails:getBookingDetailsController(dependencies),
+      getAllBookings:getALLBookingsController(dependencies),
     };
 };

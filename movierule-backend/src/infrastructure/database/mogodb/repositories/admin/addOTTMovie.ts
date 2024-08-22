@@ -5,6 +5,7 @@ export const addOTTMovie = async (
 ): Promise<IMovie | null> => {
   try {
     const newMovie = new Movie({
+      id: movieData.id,
       title: movieData.title,
       overview: movieData.overview,
       releaseDate: movieData.releaseDate,
@@ -13,6 +14,8 @@ export const addOTTMovie = async (
       backdrop_path: movieData.backdrop_path,
       trailerKey: movieData.trailerKey,
       type: "OTT",
+      runtime: movieData.runtime,
+      original_language: movieData.original_language,
     });
 
     const savedMovie = await newMovie.save();

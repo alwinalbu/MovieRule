@@ -11,6 +11,7 @@ export const adminAddOTTMovieController = (
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const {
+        id,
         title,
         overview,
         releaseDate,
@@ -19,16 +20,21 @@ export const adminAddOTTMovieController = (
         backdrop_path,
         trailerKey,
         type,
+        runtime,
+        original_language,
       } = req.body;
 
       if (
+        !id ||
         !title ||
         !overview ||
         !releaseDate ||
         !rating ||
         !posterPath ||
         !backdrop_path ||
-        !type
+        !type ||
+        !runtime ||
+        !original_language
       ) {
         return res
           .status(400)
@@ -36,6 +42,7 @@ export const adminAddOTTMovieController = (
       }
 
       const movieData = {
+        id,
         title,
         overview,
         releaseDate,
@@ -44,6 +51,8 @@ export const adminAddOTTMovieController = (
         backdrop_path,
         trailerKey,
         type,
+        runtime,
+        original_language,
       };
 
       const movie = await adminAddOTTMovieUseCase(dependencies).execute(

@@ -20,17 +20,21 @@ export const adminAddTheaterMovieController = (
         trailerKey,
         type,
         backdrop_path,
+        runtime,
+        original_language,
       } = req.body;
 
       if (
-        !id ||
-        !title ||
-        !overview ||
-        !releaseDate ||
-        !rating ||
-        !posterPath ||
-        !type ||
-        !backdrop_path
+        (!id ||
+          !title ||
+          !overview ||
+          !releaseDate ||
+          !rating ||
+          !posterPath ||
+          !type ||
+          !runtime ||
+          !original_language ||
+          !backdrop_path)
       ) {
         return res
           .status(400)
@@ -47,9 +51,15 @@ export const adminAddTheaterMovieController = (
         backdrop_path,
         trailerKey,
         type,
+        runtime,
+        original_language,
       };
 
       const movie = await adminAddTheaterMovieUseCase(dependencies).execute(movieData);
+
+      if(!movie){
+        throw new Error("Movie already exists");
+      }
 
 
       console.log(movie,"movie is added in database");

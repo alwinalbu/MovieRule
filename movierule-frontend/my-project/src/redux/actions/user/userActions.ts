@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
 import { URL, config } from "../../../config/constants";
 import { FormValuesOTP } from "../../../interfaces/user/FormValuesOTP";
 import { UserLogin } from "../../../interfaces/user/UserLogin";
@@ -9,35 +8,59 @@ import { UpdateUserDetailsPayload } from "../../../interfaces/user/UpdateUserDet
 import ImageUpload from "../../../component/imageUpoad/ImageUpload";
 import { IUserResendOTP } from "../../../interfaces/user/IUserResendOTP";
 
+// Helper function for error handling
+const handleError = (error: any, rejectWithValue: any) => {
+  if (error.response && error.response.data) {
+    return rejectWithValue(error.response.data.message || error.response.data);
+  } else {
+    return rejectWithValue({ message: "Something went wrong!" });
+  }
+};
+
+// export const getUser = createAsyncThunk(
+//   "user/getUser",
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const { data } = await axios.get(`${URL}/getUser`, config);
+
+//       console.log("User details fetched:", data.user);
+
+//       return data.user as UserSignupdata;
+//     } catch (error: any) {
+//       return handleError(error, rejectWithValue);
+//     }
+//   }
+// );
+
+export const getCurrntUser = async () => {
+  try {
+    const { data } = await axios.get(`${URL}/getUser`, config);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Sign Up User
 export const signUpUser = createAsyncThunk(
   "user/signupUser",
   async (userCredentials: UserSignupdata, { rejectWithValue }) => {
     try {
-      console.log("inside signup action");
-
-      console.log(userCredentials, "dat before theater signup");
-
+      console.log("Inside signup action");
       const response = await axios.post(
         `${URL}/signup`,
         userCredentials,
         config
       );
-
-      console.log(response.data, "here data inside after signup the result ");
-
+      console.log("Signup result:", response.data);
       return response.data;
     } catch (error: any) {
-      if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data);
-      } else {
-        return rejectWithValue({ message: "Something went wrong!" });
-      }
+      return handleError(error, rejectWithValue);
     }
   }
 );
 
-//Verify otp
-
+// Verify OTP
 export const verifyOTP = createAsyncThunk(
   "user/verifyOTP",
   async (
@@ -45,97 +68,65 @@ export const verifyOTP = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      console.log(
+      console.log("Sending OTP data to backend:", {
         otp,
         email,
         username,
         password,
         role,
-        "here data inside verify otp sendig to backend"
-      );
+      });
       const { data } = await axios.post(
         `${URL}/verify-otp`,
-        {
-          otp,
-          email,
-          username,
-          password,
-          role,
-        },
+        { otp, email, username, password, role },
         config
       );
-
-      console.log(
-        data.data,
-        "here data inside after verify-otp asyn thunk the result "
-      );
-
+      console.log("OTP verification result:", data.data);
       return data.data;
     } catch (error: any) {
-      console.error("ERROR WHIL VERIFYING OTP : ", error);
-      if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue({ message: "Something went wrong!" });
-      }
+      return handleError(error, rejectWithValue);
     }
   }
 );
 
-//Resend OTP
-
+// Resend OTP
 export const resendOTP = createAsyncThunk(
   "user/resendOTP",
   async (userResendDetails: IUserResendOTP, { rejectWithValue }) => {
     try {
-      console.log("inside resendOTP action");
-
+      console.log("Inside resendOTP action");
       const { data } = await axios.post(
         `${URL}/resend-otp`,
         userResendDetails,
         config
       );
-
-      console.log(data, "here in data");
-
+      console.log("Resend OTP result:", data);
       return data;
     } catch (error: any) {
-      if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue({ message: "Something went wrong!" });
-      }
+      return handleError(error, rejectWithValue);
     }
   }
 );
 
-//login
+// Login User
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userCredentials: UserLogin, { rejectWithValue }) => {
     try {
-      console.log("inside login action");
-
+      console.log("Inside login action");
       const { data } = await axios.post(
         `${URL}/login`,
         userCredentials,
         config
       );
-
-      console.log(data.data, "here in data");
-
+      console.log("Login result:", data.data);
       return data.data;
     } catch (error: any) {
-      if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data);
-      } else {
-        return rejectWithValue({ message: "Something went wrong!" });
-      }
+      return handleError(error, rejectWithValue);
     }
   }
 );
 
-//google Auth
+// Google Auth
 export const googleLoginOrSignUp = createAsyncThunk(
   "user/googleLoginOrSignUp",
   async (userCredentials: UserLogin, { rejectWithValue }) => {
@@ -147,17 +138,12 @@ export const googleLoginOrSignUp = createAsyncThunk(
       );
       return data.data;
     } catch (error: any) {
-      if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data);
-      } else {
-        return rejectWithValue({ message: "Something went wrong!" });
-      }
+      return handleError(error, rejectWithValue);
     }
   }
 );
 
-//UPDATE User Details
-
+// Update User Details
 export const updateUserDetails = createAsyncThunk(
   "user/updateUserDetails",
   async (
@@ -192,21 +178,15 @@ export const updateUserDetails = createAsyncThunk(
         updatedUserData,
         config
       );
-      console.log(data.user, "uderdeatils after udpadte inside actions");
-
+      console.log("User details after update:", data.user);
       return data.user;
     } catch (error: any) {
-      if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue({ message: "Something went wrong!" });
-      }
+      return handleError(error, rejectWithValue);
     }
   }
 );
 
-//Forget Password
-
+// Forget Password
 export const forgetPassword = createAsyncThunk(
   "forget/password",
   async (email: string, { rejectWithValue }) => {
@@ -216,8 +196,7 @@ export const forgetPassword = createAsyncThunk(
         { email },
         config
       );
-
-      console.log("🚀 ~ inside forget password data from backend", data);
+      console.log("Forget password result:", data);
       return data;
     } catch (error: any) {
       return rejectWithValue("Failed to reset password");
@@ -225,21 +204,15 @@ export const forgetPassword = createAsyncThunk(
   }
 );
 
-//LOGOUT
-
+// Logout
 export const logout = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(`${URL}/logout`, config);
-
       return data;
     } catch (error: any) {
-      if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data);
-      } else {
-        return rejectWithValue({ message: "Something went wrong!" });
-      }
+      return handleError(error, rejectWithValue);
     }
   }
 );

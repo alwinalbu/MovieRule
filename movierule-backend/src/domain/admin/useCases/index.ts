@@ -7,3 +7,6 @@ export * from './IAdminAddTheaterMovieUseCase';
 export * from './IGetAllTheaterMoviesUseCase';
 export * from './IAdminAddOTTMovieUseCase';
 export * from './IGetAllOTTMoviesUseCase';
+export * from './IAdminDeleteMovieUseCase';
+export * from './IGetTheaterDetailsUseCase';
+export * from './IAdminUpdateMovieUseCase';

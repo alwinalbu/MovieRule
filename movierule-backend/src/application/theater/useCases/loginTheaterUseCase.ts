@@ -15,6 +15,10 @@ export const loginTheaterUseCase = (dependencies:ITheaterDependencies) => {
           throw new Error("Theater not found");
         }
 
+        if(Theater.status==='blocked'){
+           throw new Error("Sorry, Your Account is Blocked");
+        }
+
         const isPasswordValid = await comparePassword(password, Theater.password);
         if (!isPasswordValid) {
           throw new Error("Invalid credentials");

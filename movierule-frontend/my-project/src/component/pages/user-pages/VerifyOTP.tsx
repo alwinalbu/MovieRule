@@ -65,7 +65,7 @@ function VerifyOTP() {
           title: "OTP Verified Successfully",
           text: "You can now login.",
         }).then(() => {
-          navigate("/homepage");
+          navigate("/login");
         });
       } catch (error: any) {
         Swal.fire({

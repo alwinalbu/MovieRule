@@ -13,4 +13,7 @@ export interface IAdminRepositories {
   addOTTMovie: (movieData: IMovie) => Promise<IMovie | null>;
   getAllTheaterMovies:()=>Promise<boolean | IMovie[]>;
   getAllOTTMovies:()=>Promise<boolean | IMovie[]>;
+  deleteMovieById:(movieId:string)=>Promise<IMovie|null>;
+  getTheaterById:(theaterId: string)=>Promise<TheaterEntity | null>;
+  updateMovieStreamingURL:(dbMovieId: string,videoUrl: string)=>Promise<IMovie | null>
 }

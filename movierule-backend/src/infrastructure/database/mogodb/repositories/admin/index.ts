@@ -7,3 +7,6 @@ export * from './addTheaterMovie';
 export * from './getAllTheaterMovies';
 export * from './getAllOTTMovies';
 export * from './addOTTMovie';
+export * from './deleteMovieById';
+export * from './getTheaterById';
+export * from './updateMovieStreamingURL'

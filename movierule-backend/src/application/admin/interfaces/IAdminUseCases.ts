@@ -1,6 +1,6 @@
 import { ILoginAdminUseCase } from "@/domain/admin/useCases/ILoginAdminUseCase";
 import { IAdminDependencies } from "./IAdminDependencies";
-import { IAdminAddOTTMovieUseCase, IAdminAddTheaterMovieUseCase, IAdminHandleAcceptTheaterUseCase, IAdminHandleBlockUnblockUser, IGetAllOTTMoviesUseCase, IGetAllTheaterMoviesUseCase, IGetAllTheatersAdmin, IGetAllUsersAdmin } from "@/domain/admin/useCases";
+import { IAdminAddOTTMovieUseCase, IAdminAddTheaterMovieUseCase, IAdminDeleteMovieUseCase, IAdminHandleAcceptTheaterUseCase, IAdminHandleBlockUnblockUser, IAdminUpdateMovieUseCase, IGetAllOTTMoviesUseCase, IGetAllTheaterMoviesUseCase, IGetAllTheatersAdmin, IGetAllUsersAdmin, IGetTheaterDetailsUseCase } from "@/domain/admin/useCases";
 
 export interface IAdminUseCases {
   loginAdminUseCase: (dependencies: IAdminDependencies) => ILoginAdminUseCase;
@@ -12,4 +12,7 @@ export interface IAdminUseCases {
   getAllTheaterMoviesUseCase:(dependencies:IAdminDependencies)=>IGetAllTheaterMoviesUseCase;
   adminAddOTTMovieUseCase:(dependencies:IAdminDependencies)=>IAdminAddOTTMovieUseCase;
   getAllOTTMoviesUseCase:(dependencies:IAdminDependencies)=>IGetAllOTTMoviesUseCase;
+  adminDeleteMovieUseCase:(dependencies:IAdminDependencies)=>IAdminDeleteMovieUseCase;
+  getTheaterDetailsUseCase:(dependencies:IAdminDependencies)=>IGetTheaterDetailsUseCase;
+  adminUpdateMovieUseCase:(dependencies:IAdminDependencies)=>IAdminUpdateMovieUseCase;
 }

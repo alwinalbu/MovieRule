@@ -5,23 +5,10 @@ import { commonRequest } from "../../../config/api";
 import { config } from "../../../config/constants";
 import { IMovie } from "../../Movies/IMovie";
 
-
 interface RowPostProps {
   heading: string;
   endpoint: string;
 }
-
-// interface Movie {
-//   id: string;
-//   poster: string;
-//   title: string;
-//   backdrop_path: string;
-//   genre: string;
-//   releaseYear: string;
-//   posterPath: string;
-//   rating: number;
-//   votes: number;
-// }
 
 const RowPost: React.FC<RowPostProps> = ({ heading, endpoint }) => {
   const [movies, setMovies] = useState<IMovie[]>([]);
@@ -32,7 +19,7 @@ const RowPost: React.FC<RowPostProps> = ({ heading, endpoint }) => {
   const fetchMovies = async () => {
     setLoading(true);
     try {
-      const res = await commonRequest("GET",endpoint,config)
+      const res = await commonRequest("GET", endpoint, config);
       setLoading(false);
       setMovies(res.data.data);
     } catch (error) {
@@ -45,8 +32,8 @@ const RowPost: React.FC<RowPostProps> = ({ heading, endpoint }) => {
     fetchMovies();
   }, []);
 
-  const handlePosterClick = (movie_id: string,dbMovieId:string) => {
-    navigate(`/movie/${movie_id}`,{state:dbMovieId});
+  const handlePosterClick = (movie_id: string, dbMovieId: string) => {
+    navigate(`/movie/${movie_id}`, { state: dbMovieId });
   };
 
   return (
@@ -57,16 +44,18 @@ const RowPost: React.FC<RowPostProps> = ({ heading, endpoint }) => {
           <Spinner label="Loading..." color="primary" />
         </div>
       ) : (
-        <div className="posters flex flex-wrap gap-4">
-          {movies.map((movie) => (
-            <img
-              className="poster w-64 h-96 object-cover cursor-pointer transition-transform transform hover:scale-105"
-              src={movie.posterPath}
-              alt={`Poster of ${movie.title}`}
-              key={movie._id}
-              onClick={() => handlePosterClick(movie.id,movie._id)}
-            />
-          ))}
+        <div className="flex justify-center mx-auto">
+          <div className="posters flex flex-wrap gap-4">
+            {movies.map((movie) => (
+              <img
+                className="poster w-64 h-96 object-cover cursor-pointer transition-transform transform hover:scale-105"
+                src={movie.posterPath}
+                alt={`Poster of ${movie.title}`}
+                key={movie._id}
+                onClick={() => handlePosterClick(movie.id, movie._id)}
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>

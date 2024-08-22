@@ -2,8 +2,7 @@ import { UserEntity } from "@/domain/user/entities";
 import { User } from "../../models/userSchema";
 
 
-export const updateUserPassword = async (data: {
-  email: string;
+export const updateUserPassword = async (data: {email: string;
   password: string;
 }): Promise<UserEntity> => {
   try {

@@ -1,8 +1,9 @@
 export interface AdminInterface {
-  _id?: string; 
+  _id?: string;
   email: string;
   username?: string;
   password: string;
   confirmPassword?: string;
-  role:'admin';
+  role: "admin";
+  status?: string;
 }

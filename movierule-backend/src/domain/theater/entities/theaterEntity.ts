@@ -6,7 +6,7 @@ export interface TheaterEntity {
   email: string;
   password: string;
   confirmPassword?: string;
-  theaterName?: string;
+  OwnerName?: string;
   profilePicture?: string;
   address?: string;
   city?: string;
@@ -14,9 +14,14 @@ export interface TheaterEntity {
   zipCode?: string;
   phone?: string;
   role?: "theatre";
-  status?:string;
+  status?: string;
+  aadhaarCard?: string;
+  licenseDocument?: string;
+  comments?: string;
+  rating?: string;
   createdAt?: Date;
   updatedAt?: Date;
-  screen?:ObjectId[];
+  screen?: ObjectId[];
+  snacks?: ObjectId[];
 }
   

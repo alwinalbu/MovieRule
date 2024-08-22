@@ -13,6 +13,7 @@ import {
   useDisclosure,
   Input,
   Tooltip,
+  Spinner,
 } from "@nextui-org/react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -21,6 +22,10 @@ import { config } from "../../../config/constants";
 import ImageUpload from "../../imageUpoad/ImageUpload"; 
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
+import TheaterSidebar from "../../TheaterSidebar/TheaterSidebar";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { Pagination } from "@nextui-org/react";
+
 
 export interface Screen {
   _id: string;
@@ -61,13 +66,15 @@ const TheatreScreenAddList: React.FC = () => {
   const [initialFormData, setInitialFormData] = useState<FormData | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { theaterOwner } = useSelector((state: RootState) => state.theater);
-
-
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(8); 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const theaterId = theaterOwner?._id;
 
-  console.log(theaterId,"theater id here");
-  
+  console.log(theaterId, "theater id here");
+
   useEffect(() => {
     const fetchScreens = async () => {
       if (!theaterId) {
@@ -76,7 +83,7 @@ const TheatreScreenAddList: React.FC = () => {
         return;
       }
 
-      setLoading(true); 
+      setLoading(true);
 
       try {
         const response = await commonRequest(
@@ -92,19 +99,16 @@ const TheatreScreenAddList: React.FC = () => {
         console.error("Error fetching screens:", error);
         toast.error("Failed to fetch screens. Please try again.");
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
     fetchScreens();
   }, [theaterId]);
 
-  
   if (loading) {
     return <div>Loading screens...</div>;
   }
-
-
 
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files, type } = e.target;
@@ -127,7 +131,6 @@ const TheatreScreenAddList: React.FC = () => {
       setFormData({ ...formData, [name]: value });
     }
   };
-
 
   // Handle Screen Submit
   const handleSubmit = async () => {
@@ -152,9 +155,8 @@ const TheatreScreenAddList: React.FC = () => {
 
       let response;
       if (isEditMode && selectedScreen) {
-        
-        console.log(selectedScreen,"selected screen ");
-        
+        console.log(selectedScreen, "selected screen ");
+
         response = await commonRequest(
           "PUT",
           `/theater/update-screen/${selectedScreen._id}`,
@@ -179,12 +181,14 @@ const TheatreScreenAddList: React.FC = () => {
       if (isEditMode) {
         toast.success("Screen updated successfully");
         const updatedScreens = screens.map((screen) =>
-          screen._id === selectedScreen?._id ? { ...screen, ...formData } : screen
+          screen._id === selectedScreen?._id
+            ? { ...screen, ...formData }
+            : screen
         );
         setScreens(updatedScreens);
       } else {
         toast.success("Screen created successfully");
-        setScreens([...screens, response.data]); 
+        setScreens([...screens, response.data]);
       }
 
       onOpenChange(false);
@@ -229,9 +233,24 @@ const TheatreScreenAddList: React.FC = () => {
     onOpen();
   };
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  // Pagination logic
+  const indexOfLastShow = currentPage * itemsPerPage;
+  const indexOfFirstShow = indexOfLastShow - itemsPerPage;
+  const currentScreens = screens.slice(indexOfFirstShow, indexOfLastShow);
+
   return (
     <>
-      <div className="h-screen p-4 bg-black">
+      <div className="min-h-screen p-4 bg-black">
+        <button onClick={toggleSidebar} className="text-white">
+          <GiHamburgerMenu />
+        </button>
+        {sidebarOpen && (
+          <TheaterSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
+        )}
         <div className="flex pb-8 pt-4">
           <h1 className="text-3xl font-semibold text-white">Manage Screens</h1>
         </div>
@@ -255,48 +274,66 @@ const TheatreScreenAddList: React.FC = () => {
         >
           Add Screen
         </Button>
-        <div className="gap-2 grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
-          {screens?.length > 0 &&
-            screens.map((screen) => (
-              <Card
-                key={screen._id}
-                className=""
-                shadow="sm"
-                isPressable
-                onPress={() => handleCardClick(screen)}
-              >
-                <CardBody className="overflow-visible p-0">
-                  <Image
+        {loading ? (
+          <div className="flex justify-center items-center h-60">
+            <Spinner size="lg" />
+          </div>
+        ) : (
+          <>
+            <div className="gap-2 grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
+              {currentScreens?.length > 0 &&
+                currentScreens.map((screen) => (
+                  <Card
+                    key={screen._id}
+                    className=""
                     shadow="sm"
-                    radius="lg"
-                    width="100%"
-                    className="w-full object-cover"
-                    src={screen.image}
-                  />
-                </CardBody>
-                <CardFooter className="text-small flex flex-col justify-center items-start">
-                  <h2 className="text-lg font-bold">{screen.name}</h2>
-                  <h3 className="font-bold font-md">
-                    <i className="fa-solid fa-tv"></i> {screen.quality}
-                  </h3>
-                  <p className="text-default-500 mt-2">
-                    <i className="fa-solid fa-volume-low"></i> {screen.sound}
-                  </p>
-                  <p className="text-default-500 mt-2">
-                    <i className="fa-solid fa-money-bill"></i> {screen.price}
-                  </p>
-                  <Button
-                    size="sm"
-                    className="mt-2 border bg-transparent border-white hover:bg-indigo-500 hover:border-none"
+                    isPressable
+                    onPress={() => handleCardClick(screen)}
                   >
-                    <Link to={`/theatre/screens/edit-layout/${screen._id}`}>
-                      Edit layout
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-        </div>
+                    <CardBody className="overflow-visible p-0">
+                      <Image
+                        shadow="sm"
+                        radius="lg"
+                        width="100%"
+                        className="w-full object-cover"
+                        src={screen.image}
+                      />
+                    </CardBody>
+                    <CardFooter className="text-small flex flex-col justify-center items-start">
+                      <h2 className="text-lg font-bold">{screen.name}</h2>
+                      <h3 className="font-bold font-md">
+                        <i className="fa-solid fa-tv"></i> {screen.quality}
+                      </h3>
+                      <p className="text-default-500 mt-2">
+                        <i className="fa-solid fa-volume-low"></i>{" "}
+                        {screen.sound}
+                      </p>
+                      <p className="text-default-500 mt-2">
+                        <i className="fa-solid fa-money-bill"></i>{" "}
+                        {screen.price}
+                      </p>
+                      <Button
+                        size="sm"
+                        className="mt-2 border bg-transparent border-white hover:bg-indigo-500 hover:border-none"
+                      >
+                        <Link to={`/theatre/screens/edit-layout/${screen._id}`}>
+                          Edit layout
+                        </Link>
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+            </div>
+            <div className="flex justify-center mt-4">
+              <Pagination
+                total={Math.ceil(screens.length / itemsPerPage)}
+                initialPage={1}
+                onChange={(page: number) => setCurrentPage(page)}
+                showControls
+              />
+            </div>
+          </>
+        )}
       </div>
 
       <Modal

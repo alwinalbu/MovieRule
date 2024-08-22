@@ -21,8 +21,9 @@ export interface AdminEntity {
   email: string;
   password: string;
   role?: "admin";
-  usersList?: ObjectId[]; // Array of ObjectId references to user documents
-  theaterList?: ObjectId[]; // Array of ObjectId references to theater documents
-  movies?: ObjectId[]; // Array of ObjectId references to movie documents
-  streamingMovies?: ObjectId[]; // Array of ObjectId references to streaming movie documents
+  usersList?: ObjectId[];
+  theaterList?: ObjectId[];
+  movies?: ObjectId[];
+  streamingMovies?: ObjectId[];
+  status:"active";
 }

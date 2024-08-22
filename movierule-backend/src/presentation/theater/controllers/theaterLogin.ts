@@ -28,6 +28,8 @@ export const theaterLoginController = (dependencies: ITheaterDependencies) => {
          return res.status(403).json({ message: "You are not approved yet" });
        }
 
+         
+
 
         if (!theater) {
           return res.status(401).json({ message: "Invalid credentials" });

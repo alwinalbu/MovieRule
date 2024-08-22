@@ -18,9 +18,7 @@ export const TheaterProfile: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
-  const { theaterOwner, error: reduxError } = useSelector(
-    (state: RootState) => state.theater
-  );
+  const { theaterOwner, error: reduxError } = useSelector((state: RootState) => state.theater);
 
   useEffect(() => {
     if (theaterOwner) {

@@ -39,12 +39,12 @@ const TheaterSidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-64 bg-gray-800 h-full transition-transform transform ${
+      className={`fixed top-0 left-0 w-64 bg-gray-800 h-full  transition-transform transform ${
         isOpen ? "translate-x-0" : "-translate-x-full"
-      } md:translate-x-0`}
+      } md:translate-x-0 z-20`}
     >
       <div className="flex items-center justify-between p-4">
-        <h1 className="text-xl font-bold">Moverule</h1>
+        <h1 className="text-xl font-bold text-white">Moverule</h1>
         <button onClick={toggleSidebar} className="text-white">
           <AiOutlineClose />
         </button>
@@ -65,18 +65,18 @@ const TheaterSidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
           <FaFilm className="mr-3" /> Movies
         </NavLink>
         <NavLink
-          to="/show-booking"
+          to="/theater/show-booking"
           className="flex items-center p-2"
           style={{ color: "#9CA3AF" }}
         >
           <FaTicketAlt className="mr-3" /> Show Booking
         </NavLink>
         <NavLink
-          to="/list-booking"
+          to="/theater/snacks"
           className="flex items-center p-2"
           style={{ color: "#9CA3AF" }}
         >
-          <FaListAlt className="mr-3" /> List of Booking
+          <FaListAlt className="mr-3" /> Snacks & Beverages
         </NavLink>
         <NavLink
           to="/theater/create-shows"

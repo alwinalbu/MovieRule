@@ -12,11 +12,6 @@ export const adminAddTheaterMovieUseCase=(dependencies:IAdminDependencies)=>{
             try {
                 
                 const newMovie=await addTheaterMovie(movieData);
-
-                if(!newMovie){
-                    throw new Error("Failed To Add Movie");
-                    
-                }
                 return newMovie;
 
             } catch (error:any) {

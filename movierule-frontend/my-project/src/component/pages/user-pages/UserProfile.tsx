@@ -18,33 +18,32 @@
 //   const [password, setPassword] = useState("");
 //   const [profilePic, setProfilePic] = useState<File | null>(null);
 //   const [profilePicture, setProfilePicture] = useState<any>(undefined);
+//   const [city, setCity] = useState<string>(""); // Added city state
 //   const [editMode, setEditMode] = useState(false);
 //   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
 
 //   const navigate = useNavigate();
 //   const dispatch = useDispatch<AppDispatch>();
 
-//   const { user,error:reduxError } = useSelector((state: RootState) => state.user);
-
-//   console.log(user, "user details inside the user profile");
+//   const { user, error: reduxError } = useSelector(
+//     (state: RootState) => state.user
+//   );
 
 //   // Initialize user details when component mounts
 //   useEffect(() => {
 //     if (user) {
 //       setUsername(user.username || "");
 //       setEmail(user.email || "");
+//       setCity(user.city || ""); // Initialize city
 //       setProfilePicture(user.profilePicture); // Assuming profilePicture is stored as URL string
 //     }
 //   }, [user]);
 
-//    useEffect(() => {
-//      if (reduxError) {
-//        toast.error(reduxError as string);
-//      }
-//    }, [reduxError]);
-
-
+//   useEffect(() => {
+//     if (reduxError) {
+//       toast.error(reduxError as string);
+//     }
+//   }, [reduxError]);
 
 //   const handleOldPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 //     setOldPassword(e.target.value);
@@ -66,6 +65,7 @@
 //         userId: user?._id,
 //         username,
 //         email,
+//         city, // Include city in update
 //         oldPassword,
 //         password,
 //         profilePic,
@@ -90,24 +90,23 @@
 //   };
 
 //   const handleLogout = () => {
-//      dispatch(logout());
-//      closeMenu();
-//      Swal.fire({
-//        icon: "success",
-//        title: "Logged out successfully!",
-//        showConfirmButton: false,
-//        timer: 1500,
-//      }).then(() => {
-//        navigate("/");
-//      });
-    
+//     dispatch(logout());
+//     closeMenu();
+//     Swal.fire({
+//       icon: "success",
+//       title: "Logged out successfully!",
+//       showConfirmButton: false,
+//       timer: 1500,
+//     }).then(() => {
+//       navigate("/");
+//     });
 //   };
 
-//    const handleLogoClick = () => {
-//      if (user) {
-//        navigate("/homepage");
-//      }
-//    };
+//   const handleLogoClick = () => {
+//     if (user) {
+//       navigate("/homepage");
+//     }
+//   };
 
 //   return (
 //     <div className="min-h-screen bg-gray-900 text-white flex flex-col">
@@ -260,6 +259,20 @@
 //           />
 //         </div>
 
+//         {/* City */}
+//         <div className="mb-4">
+//           <label className="block text-sm font-medium text-gray-700">
+//             City
+//           </label>
+//           <input
+//             type="text"
+//             value={city}
+//             disabled={!editMode}
+//             onChange={(e) => setCity(e.target.value)}
+//             className="mt-1 p-2 w-full border rounded-md text-black"
+//           />
+//         </div>
+
 //         {/* Change Password */}
 //         {editMode && (
 //           <>
@@ -330,18 +343,15 @@
 
 // export default UserProfile;
 
+
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { NavLink, useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../../redux/store";
-import {
-  updateUserDetails,
-  logout,
-} from "../../../redux/actions/user/userActions";
+import { updateUserDetails} from "../../../redux/actions/user/userActions";
 import "tailwindcss/tailwind.css";
-import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
+import Navbar from "./NavBar";
 
 const UserProfile: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -350,11 +360,10 @@ const UserProfile: React.FC = () => {
   const [password, setPassword] = useState("");
   const [profilePic, setProfilePic] = useState<File | null>(null);
   const [profilePicture, setProfilePicture] = useState<any>(undefined);
-  const [city, setCity] = useState<string>(""); // Added city state
+  const [city, setCity] = useState<string>(""); 
   const [editMode, setEditMode] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const navigate = useNavigate();
+ 
   const dispatch = useDispatch<AppDispatch>();
 
   const { user, error: reduxError } = useSelector(
@@ -413,132 +422,10 @@ const UserProfile: React.FC = () => {
     setEditMode(false);
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
-
-  const handleLogout = () => {
-    dispatch(logout());
-    closeMenu();
-    Swal.fire({
-      icon: "success",
-      title: "Logged out successfully!",
-      showConfirmButton: false,
-      timer: 1500,
-    }).then(() => {
-      navigate("/");
-    });
-  };
-
-  const handleLogoClick = () => {
-    if (user) {
-      navigate("/homepage");
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col">
-      <header className="relative">
         <Toaster />
-        <div className="absolute top-4 left-4">
-          <img
-            src="/src/assets/logo-new.png"
-            alt="Logo"
-            className="w-15 h-10 cursor-pointer"
-            onClick={handleLogoClick}
-          />
-        </div>
-        <div className="absolute top-4 right-4 flex items-center space-x-4">
-          <div className="text-right">
-            <h1 className="text-lg font-bold">{user?.username}</h1>
-            <p className="text-sm">{user?.email}</p>
-          </div>
-          <img
-            src={user?.profilePicture || "https://via.placeholder.com/150"}
-            alt="Profile"
-            className="w-12 h-12 rounded-full"
-            onClick={toggleMenu}
-          />
-        </div>
-      </header>
-      {isMenuOpen && (
-        <div className="absolute top-0 right-0 w-64 h-full bg-gray-800 rounded-lg shadow-lg z-10 p-4">
-          <button
-            className="absolute top-2 right-2 text-white"
-            onClick={closeMenu}
-          >
-            &times;
-          </button>
-          <div className="flex flex-col items-center mt-8">
-            <img
-              src={user?.profilePicture || "https://via.placeholder.com/150"}
-              alt="Profile"
-              className="w-24 h-24 rounded-full"
-            />
-            <h1 className="mt-4 text-lg font-bold">{user?.username}</h1>
-            <p className="text-sm">{user?.email}</p>
-          </div>
-          <ul className="mt-8 space-y-4">
-            <li>
-              <NavLink
-                to="/profile"
-                className="block py-2 px-4 hover:bg-gray-700 rounded-lg"
-                onClick={closeMenu}
-              >
-                Personal Info
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/tickets"
-                className="block py-2 px-4 hover:bg-gray-700 rounded-lg"
-                onClick={closeMenu}
-              >
-                Tickets
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/payment-method"
-                className="block py-2 px-4 hover:bg-gray-700 rounded-lg"
-                onClick={closeMenu}
-              >
-                Payment Method
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/stream-library-plan"
-                className="block py-2 px-4 hover:bg-gray-700 rounded-lg"
-                onClick={closeMenu}
-              >
-                Stream Library/Plan
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/chat"
-                className="block py-2 px-4 hover:bg-gray-700 rounded-lg"
-                onClick={closeMenu}
-              >
-                Chat
-              </NavLink>
-            </li>
-            <li>
-              <button
-                onClick={handleLogout}
-                className="block w-full text-left py-2 px-4 hover:bg-gray-700 rounded-lg"
-              >
-                Logout
-              </button>
-            </li>
-          </ul>
-        </div>
-      )}
+        <Navbar/>
       <div className="flex-1 p-8">
         {/* Profile Picture */}
         <div className="flex justify-center mb-4">

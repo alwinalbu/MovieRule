@@ -9,6 +9,9 @@ import { adminAddTheaterMovieController } from "./adminAddTheaterMovie";
 import { getAllTheaterMoviesAdminController } from "./getAllTheaterMoviesAdmin";
 import { adminAddOTTMovieController } from "./adminAddOTTMovie";
 import { getAllOTTMoviesAdminController } from "./getAllOTTMoviesAdmin";
+import { adminDeleteMovieController } from "./adminDeleteMovie";
+import { getTheaterDetailsController } from "./getTheaterDetails";
+import { adminUpdateMovieController } from "./adminUpdateMovie";
 
 
 export const admincontrollers=(dependencies:IAdminDependencies)=>{
@@ -18,10 +21,15 @@ export const admincontrollers=(dependencies:IAdminDependencies)=>{
       getAllTheatersListAdmin: getAllTheaterAdminController(dependencies),
       getAllUsersListAdmin: getAllUsersAdminController(dependencies),
       handleBlockUnblockUser: handleBlockUnblockController(dependencies),
-      adminHandleAcceptTheater: adminHandleAcceptTheaterController(dependencies),
-      adminAddTheaterMovie:adminAddTheaterMovieController(dependencies),
-      getAllTheaterMoviesAdmin:getAllTheaterMoviesAdminController(dependencies),
-      adminAddOTTMovie:adminAddOTTMovieController(dependencies),
-      getAllOTTMoviesAdmin:getAllOTTMoviesAdminController(dependencies),
+      adminHandleAcceptTheater:
+        adminHandleAcceptTheaterController(dependencies),
+      adminAddTheaterMovie: adminAddTheaterMovieController(dependencies),
+      getAllTheaterMoviesAdmin:
+        getAllTheaterMoviesAdminController(dependencies),
+      adminAddOTTMovie: adminAddOTTMovieController(dependencies),
+      getAllOTTMoviesAdmin: getAllOTTMoviesAdminController(dependencies),
+      adminDeleteMovie: adminDeleteMovieController(dependencies),
+      getTheaterDetails: getTheaterDetailsController(dependencies),
+      adminUpdateMovie:adminUpdateMovieController(dependencies),
     };
 }

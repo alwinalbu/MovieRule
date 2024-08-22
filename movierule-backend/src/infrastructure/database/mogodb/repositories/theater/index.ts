@@ -12,3 +12,8 @@ export * from './theaterGetAllScreens';
 export * from './theaterUpdateScreenById';
 export * from './getScreenById';
 export * from './updateTheaterScreenLayout';
+export * from './theaterSaveSnack';
+export * from './fetchSnacks';
+export * from './getAllBookingsByID';
+export * from './getBookingById';
+export * from './getAllBookingsBestMovie';

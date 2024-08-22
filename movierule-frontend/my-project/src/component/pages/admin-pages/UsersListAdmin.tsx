@@ -2,15 +2,42 @@ import React, { useEffect, useState } from "react";
 import { commonRequest } from "../../../config/api";
 import { config } from "../../../config/constants";
 import AdminSidebar from "../../AdminSidePanal/AdminSidebar";
+import {
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+  Chip,
+  Tooltip,
+} from "@nextui-org/react";
+import { EyeIcon } from "../../icons/EyeIcon";
+import { EditIcon } from "../../icons/EditIcon";
+import { DeleteIcon } from "../../icons/DeleteIcon";
 
 export interface User {
   _id?: string;
   username?: string | null;
   email: string | null;
   profilePicture?: string | null;
-  status: string | null;
+  status: "active" | "blocked" | "pending" | string;
   city?: string | null;
 }
+
+type ChipColor =
+  | "success"
+  | "danger"
+  | "warning"
+  | "default"
+  | "primary"
+  | "secondary";
+
+const statusColorMap: Record<User["status"], ChipColor> = {
+  active: "success",
+  blocked: "danger",
+  pending: "warning",
+};
 
 const UsersList: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -36,7 +63,7 @@ const UsersList: React.FC = () => {
 
   const handleBlockUnblock = async (
     id: string | undefined,
-    status: string | null
+    status: User["status"]
   ) => {
     const newStatus = status === "blocked" ? "active" : "blocked";
     try {
@@ -53,6 +80,86 @@ const UsersList: React.FC = () => {
     }
   };
 
+  const renderCell = (user: User, columnKey: string | number) => {
+    const key = String(columnKey);
+    const cellValue = user[key as keyof User];
+
+    switch (key) {
+      case "username":
+        return (
+          <div className="flex items-center">
+            <img
+              src={user.profilePicture || "/default-profile.png"}
+              alt={`${user.username}'s profile`}
+              className="w-10 h-10 rounded-full"
+            />
+            <div className="ml-2">
+              <p className="text-sm text-gray-500">{user.username}</p>
+              <p className="text-sm text-gray-500">{user.email}</p>
+            </div>
+          </div>
+        );
+      case "city":
+         return (
+           <div className="flex flex-col">
+             <p className="text-sm text-gray-500">{user.city}</p>
+           </div>
+         );
+      case "status":
+        const chipColor =
+          statusColorMap[user.status as keyof typeof statusColorMap] ||
+          "default";
+        return (
+          <Chip
+            className="capitalize"
+            color={chipColor}
+            size="sm"
+            variant="flat"
+          >
+            {cellValue || "Unknown"}
+          </Chip>
+        );
+      case "actions":
+        return (
+          <div className="relative flex flex-col items-center gap-2">
+            <div className="flex items-center gap-2">
+              <Tooltip content="Details">
+                <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                  <EyeIcon />
+                </span>
+              </Tooltip>
+              <Tooltip content="Edit user">
+                <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                  <EditIcon />
+                </span>
+              </Tooltip>
+              <Tooltip color="danger" content="Delete user">
+                <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                  <DeleteIcon />
+                </span>
+              </Tooltip>
+              <Tooltip
+                content={
+                  user.status === "blocked" ? "Unblock user" : "Block user"
+                }
+              >
+                <span
+                  className={`text-lg cursor-pointer ${
+                    user.status === "blocked" ? "text-success" : "text-danger"
+                  }`}
+                  onClick={() => handleBlockUnblock(user._id, user.status)}
+                >
+                  {user.status === "blocked" ? "Unblock" : "Block"}
+                </span>
+              </Tooltip>
+            </div>
+          </div>
+        );
+      default:
+        return cellValue;
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -61,54 +168,46 @@ const UsersList: React.FC = () => {
     return <div>Error: {error}</div>;
   }
 
+  const columns = [
+    { name: "Name", uid: "username" },
+    { name: "City", uid: "city" },
+    { name: "Status", uid: "status" },
+    { name: "Actions", uid: "actions" },
+  ];
+
   return (
-    <div className="bg-black min-h-screen text-white">
+    <div className="bg-black min-h-screen text-white ">
       <AdminSidebar />
       <main className="flex-1 p-6">
         <h1 className="text-3xl font-bold mb-6">Users List</h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {users.map((user) => (
-            <div key={user._id} className="bg-gray-800 rounded-lg p-4">
-              <div className="flex justify-center items-center mb-2">
-                <img
-                  src={user.profilePicture || "/default-profile.png"}
-                  alt={`${user.username}'s profile`}
-                  className="w-30 h-20 rounded-full"
-                />
-              </div>
-              <div className="text-center mb-2">
-                <div className="font-bold">{user.username}</div>
-                <div>{user.city}</div>
-              </div>
-              <div className="text-center mb-2">
-                <span
-                  className={`px-2 py-1 rounded-full text-xs ${
-                    user.status === "active"
-                      ? "bg-green-500"
-                      : user.status === "blocked"
-                      ? "bg-red-500"
-                      : "bg-yellow-500"
-                  }`}
-                >
-                  {user.status}
-                </span>
-              </div>
-              <div className="flex justify-center items-center">
-                <button
-                  className={`px-4 py-2 rounded ${
-                    user.status === "blocked" ? "bg-red-500" : "bg-yellow-500"
-                  } text-white`}
-                  onClick={() => handleBlockUnblock(user._id, user.status)}
-                >
-                  {user.status === "blocked" ? "Unblock" : "Block"}
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <Table
+          aria-label="Example table with custom cells"
+          
+        >
+          <TableHeader columns={columns}>
+            {(column) => (
+              <TableColumn
+                key={column.uid}
+                align={column.uid === "actions" ? "center" : "start"}
+              >
+                {column.name}
+              </TableColumn>
+            )}
+          </TableHeader>
+          <TableBody items={users}>
+            {(item) => (
+              <TableRow key={item._id}>
+                {(columnKey) => (
+                  <TableCell>{renderCell(item, columnKey)}</TableCell>
+                )}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </main>
     </div>
   );
 };
 
 export default UsersList;
+

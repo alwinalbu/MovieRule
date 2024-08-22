@@ -73,11 +73,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AdminSidebar from "../../AdminSidePanal/AdminSidebar";
-import { IMovie } from "../../Movies/IMovie";
 import { Pagination } from "@nextui-org/react";
 
 const AddMovieTmdbList: React.FC = () => {
-  const [moviesList, setMoviesList] = useState<IMovie[]>([]);
+  const [moviesList, setMoviesList] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const moviesPerPage = 8;
 
@@ -90,6 +89,7 @@ const AddMovieTmdbList: React.FC = () => {
         setMoviesList(json.results);
       })
       .catch((err) => console.error("Error fetching movies:", err));
+      
   };
 
   useEffect(() => {
@@ -99,6 +99,9 @@ const AddMovieTmdbList: React.FC = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
+  console.log(moviesList,"movies data");
+  
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-200">

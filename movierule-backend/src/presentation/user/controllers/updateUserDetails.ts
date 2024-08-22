@@ -12,7 +12,6 @@ export const updateUserController = (dependencies: IDependencies) => {
     const { username, oldPassword, password, profilePic,city } = req.body;
 
     try {
-      console.log(req.user,'111111111111111');
       
       if (!req.user || !req.user._id) {
         return res.status(402).json("Authentication failed");
@@ -21,8 +20,6 @@ export const updateUserController = (dependencies: IDependencies) => {
       if (!userId) {
         return res.status(400).json({ error: "Missing userId" });
       }
-
-      
 
       const user = await findUserByIdUseCase(dependencies).execute(userId);
 

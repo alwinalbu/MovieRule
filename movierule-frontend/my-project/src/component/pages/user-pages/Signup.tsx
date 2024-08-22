@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import "tailwindcss/tailwind.css";
-import { ValidationSchema } from "../../../schemas/ValidationSchema";
+import { ValidationSchema } from "../../../schemas/ValidationSchemaUserSignup";
 
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,8 +25,8 @@ const SignUp: React.FC = () => {
   const initialValues: UserSignupdata = {
     username: "User",
     email: "",
-    password: "Alwin@123",
-    confirmPassword: "Alwin@123",
+    password: "Alwin@1234",
+    confirmPassword: "Alwin@1234",
     role: "user",
   };
 
@@ -34,12 +34,11 @@ const SignUp: React.FC = () => {
     initialValues: initialValues,
     validationSchema: ValidationSchema,
     onSubmit: (values) => {
+      console.log("inside the click", values);
       dispatch(signUpUser(values))
         .unwrap()
         .then(() => {
-          navigate("/verify-otp", {
-         
-          });
+          navigate("/verify-otp", {});
         })
         .catch((err: any) => {
           console.error("Signup failed:", err);
