@@ -23,8 +23,8 @@ const StreamPage: React.FC = () => {
   const [error, setError] = useState<string>("");
   const [currentMovieIndex, setCurrentMovieIndex] = useState<number>(0);
   const { user } = useSelector((state: RootState) => state.user);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [selectedMovie, setSelectedMovie] = useState<any>(null);
+  const { isOpen, onOpenChange } = useDisclosure();
+  const [selectedMovie, _setSelectedMovie] = useState<any>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -93,10 +93,10 @@ const StreamPage: React.FC = () => {
     handleNextMovie();
   };
 
-  const openModal = (movie: any) => {
-    setSelectedMovie(movie);
-    onOpen();
-  };
+  // const openModal = (movie: any) => {
+  //   setSelectedMovie(movie);
+  //   onOpen();
+  // };
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">

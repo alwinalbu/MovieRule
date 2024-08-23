@@ -1,5 +1,5 @@
 
-import { ISnack } from "@/infrastructure/database/mogodb/models/snackSchema";
+import { ISnack } from "../../../infrastructure/database/mogodb/models/snackSchema";
 import { ITheaterDependencies } from "../interfaces/ITheaterDependencies";
 
 export const AddSnackTheaterUseCase = (dependencies: ITheaterDependencies) => {

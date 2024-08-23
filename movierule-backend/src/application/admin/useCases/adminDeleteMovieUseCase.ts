@@ -1,4 +1,4 @@
-import { IAdminDependencies } from "@/application/admin/interfaces/IAdminDependencies";
+import { IAdminDependencies } from "../../../application/admin/interfaces/IAdminDependencies";
 
 export const adminDeleteMovieUseCase = (dependencies: IAdminDependencies) => {
   const {

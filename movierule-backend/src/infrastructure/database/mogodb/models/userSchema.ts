@@ -1,5 +1,6 @@
+
 // import { Schema, model } from "mongoose";
-// import { UserEntity } from "@/domain/user/entities";
+// import { UserEntity } from "../../../../domain/user/entities";
 
 // const userSchema = new Schema(
 //   {
@@ -26,8 +27,24 @@
 //       default: "active",
 //     },
 //     isSubscribed: {
-//       type: Boolean,
-//       default: false,
+//       status: {
+//         type: String,
+//         enum: ["initiated", "active", "inactive"],
+//         default: "inactive",
+//       },
+//       sessionId: {
+//         type: String,
+//         default: "",
+//       },
+//       amount: {
+//         type: Number,
+//         default: 0,
+//       },
+//       paymentStatus: {
+//         type: String,
+//         enum: ["pending", "paid", "failed"],
+//         default: "pending",
+//       },
 //     },
 //     profilePicture: {
 //       type: String,
@@ -68,8 +85,24 @@
 // export const User = model<UserEntity>("users", userSchema);
 
 
+export interface IUserWalletDetails {
+  walletBalance: number;
+  refunds: {
+    refundAmount: number;
+    refundDate: Date;
+    movieTitle: string;
+    theaterName: string;
+    screenName: string;
+    showDate: Date;
+    showTime: string;
+    selectedSeats: string[];
+  }[];
+}
+
+
+
 import { Schema, model } from "mongoose";
-import { UserEntity } from "@/domain/user/entities";
+import { UserEntity } from "../../../../domain/user/entities";
 
 const userSchema = new Schema(
   {
@@ -145,6 +178,10 @@ const userSchema = new Schema(
         ref: "Chat",
       },
     ],
+    walletBalance: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
@@ -152,3 +189,4 @@ const userSchema = new Schema(
 );
 
 export const User = model<UserEntity>("users", userSchema);
+

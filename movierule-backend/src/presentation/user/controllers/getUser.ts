@@ -1,4 +1,4 @@
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
 import { Request, Response, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
 

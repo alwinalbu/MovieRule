@@ -1,8 +1,8 @@
 
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
-import { Otp } from "@/infrastructure/database/mogodb/models/otpSchema";
-import { hashPassword } from "@/utils/bcrypt";
-import { generateAccessToken, generateRefreshToken } from "@/utils/jwt";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
+import { Otp } from "../../../infrastructure/database/mogodb/models/otpSchema";
+import { hashPassword } from "../../../utils/bcrypt";
+import { generateAccessToken, generateRefreshToken } from "../../../utils/jwt";
 
 import { NextFunction, Request, Response } from "express";
 

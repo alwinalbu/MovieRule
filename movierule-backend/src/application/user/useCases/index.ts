@@ -19,3 +19,4 @@ export * from './userGetOTTMoviesUseCase';
 export * from './getBookingByIdUseCase';
 export * from './createUserSubscriptionUseCase';
 export * from './updateUserSubscriptionUseCase';
+export * from './getUserWalletDetailsUseCase';

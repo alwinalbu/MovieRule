@@ -1,5 +1,5 @@
 
-import { IAdminDependencies } from "@/application/admin/interfaces/IAdminDependencies";
+import { IAdminDependencies } from "../../../application/admin/interfaces/IAdminDependencies";
 import { Request, Response, NextFunction } from "express";
 
 

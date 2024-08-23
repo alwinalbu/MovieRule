@@ -1,4 +1,4 @@
-import { comparePassword } from "@/utils/bcrypt";
+import { comparePassword } from "../../../utils/bcrypt";
 import { ITheaterDependencies } from "../interfaces/ITheaterDependencies";
 
 

@@ -1,4 +1,4 @@
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
 import { NextFunction, Request, Response } from "express";
 
 export const UserGetOTTMoviesListController = (dependencies: IDependencies) => {

@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AppDispatch, RootState } from "../../redux/store";
 import { logoutAdmin } from "../../redux/actions/admin/adminActions";
-import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 const AdminSidebar: React.FC = () => {
   const { admin } = useSelector((state: RootState) => state.admin);

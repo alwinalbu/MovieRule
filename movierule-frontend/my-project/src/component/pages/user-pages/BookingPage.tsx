@@ -446,7 +446,7 @@ import React, { useEffect, useState } from "react";
 import { commonRequest } from "../../../config/api";
 import { config } from "../../../config/constants";
 import toast, { Toaster } from "react-hot-toast";
-import { format, parseISO, parse, isBefore, isSameDay } from "date-fns";
+import { format, parseISO, parse, isBefore } from "date-fns";
 import { useNavigate, useParams } from "react-router-dom";
 import { IMovie } from "../../Movies/IMovie";
 
@@ -488,7 +488,7 @@ const BookingPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const [movieDetails, setMovieDetails] = useState<IMovie | null>(null);
+  const [_movieDetails, setMovieDetails] = useState<IMovie | null>(null);
 
   const navigate = useNavigate();
 

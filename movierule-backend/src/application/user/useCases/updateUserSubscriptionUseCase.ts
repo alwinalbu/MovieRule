@@ -1,5 +1,5 @@
 import { IDependencies } from "../interfaces/IDependencies";
-import { SubscriptionData, UserEntity } from "@/domain/user/entities";
+import { SubscriptionData, UserEntity } from "../../../domain/user/entities";
 
 export const updateUserSubscriptionUseCase = (dependencies: IDependencies) => {
   const {

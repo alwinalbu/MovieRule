@@ -1,5 +1,5 @@
 
-import { IScreen } from "@/infrastructure/database/mogodb/models/screenSchema";
+import { IScreen } from "../../../infrastructure/database/mogodb/models/screenSchema";
 import { ITheaterDependencies } from "../interfaces/ITheaterDependencies";
 
 export const theaterUpdateScreenLayoutUseCase=(dependencies:ITheaterDependencies)=>{

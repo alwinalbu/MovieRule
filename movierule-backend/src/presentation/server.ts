@@ -1,11 +1,11 @@
 import express, { Application,Request,Response } from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import { dependencies } from "@/_boot/dependencies";
+import { dependencies } from "../_boot/dependencies";
 import cors from "cors";
-import { theaterDependencies } from "@/_boot/theaterDependencies";
-import { theaterRoutes,routes,adminRoutes } from "@/infrastructure/routes";
-import { adminDependencies } from "@/_boot/adminDependencies";
+import { theaterDependencies } from "../_boot/theaterDependencies";
+import { theaterRoutes,routes,adminRoutes } from "../infrastructure/routes";
+import { adminDependencies } from "../_boot/adminDependencies";
 
 
 

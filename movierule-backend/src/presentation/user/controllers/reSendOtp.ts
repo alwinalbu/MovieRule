@@ -1,7 +1,7 @@
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
-import { Otp } from "@/infrastructure/database/mogodb/models/otpSchema";
-import { generateOtp } from "@/utils/otp/generateOtp";
-import { sendOtp } from "@/utils/otp/sendOtp";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
+import { Otp } from "../../../infrastructure/database/mogodb/models/otpSchema";
+import { generateOtp } from "../../../utils/otp/generateOtp";
+import { sendOtp } from "../../../utils/otp/sendOtp";
 import { Request, Response, NextFunction } from "express";
 
 export const resendOtpController = (dependencies: IDependencies) => {

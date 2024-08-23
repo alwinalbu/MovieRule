@@ -1,7 +1,7 @@
 
 
 
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
 import { Request, Response, NextFunction } from "express";
 
 export const userGetAllBookingsController = (dependencies: IDependencies) => {

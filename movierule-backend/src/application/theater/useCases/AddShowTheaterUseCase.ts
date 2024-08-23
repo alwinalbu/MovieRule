@@ -1,4 +1,4 @@
-import { IShow } from "@/infrastructure/database/mogodb/models/showSchema";
+import { IShow } from "../../../infrastructure/database/mogodb/models/showSchema";
 import { ITheaterDependencies } from "../interfaces/ITheaterDependencies";
 
 export const AddShowTheaterUseCase = (dependencies: ITheaterDependencies) => {

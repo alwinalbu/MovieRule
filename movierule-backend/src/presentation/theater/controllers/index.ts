@@ -1,4 +1,4 @@
-import { ITheaterDependencies } from "@/application/theater/interfaces/ITheaterDependencies";
+import { ITheaterDependencies } from "../../../application/theater/interfaces/ITheaterDependencies";
 import { theaterSignupController } from "./theaterSignup";
 import { theaterLoginController } from "./theaterLogin";
 import { theaterlogoutController } from "./theaterLogout";

@@ -1,4 +1,4 @@
-import { TheaterEntity } from "@/domain/theater/entities";
+import { TheaterEntity } from "../../../domain/theater/entities";
 import { ITheaterDependencies } from "../interfaces/ITheaterDependencies";
 
 export const createTheaterUseCase = (dependencies: ITheaterDependencies) => {

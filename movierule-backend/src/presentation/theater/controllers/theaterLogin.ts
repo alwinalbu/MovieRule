@@ -1,5 +1,5 @@
-import { ITheaterDependencies } from "@/application/theater/interfaces/ITheaterDependencies";
-import { generateAccessToken, generateRefreshToken } from "@/utils/jwt";
+import { ITheaterDependencies } from "../../../application/theater/interfaces/ITheaterDependencies";
+import { generateAccessToken, generateRefreshToken } from "../../../utils/jwt";
 import { NextFunction, Request, Response } from "express";
 
 export const theaterLoginController = (dependencies: ITheaterDependencies) => {

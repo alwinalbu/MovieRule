@@ -1,6 +1,6 @@
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
-import { generateForgotPasswordToken } from "@/utils/jwt/generateForgotPasswordToken";
-import { sendResetPasswordEmail } from "@/utils/sendResetPasswordEmail";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
+import { generateForgotPasswordToken } from "../../../utils/jwt/generateForgotPasswordToken";
+import { sendResetPasswordEmail } from "../../../utils/sendResetPasswordEmail";
 import { Request, Response, NextFunction } from "express";
 
 

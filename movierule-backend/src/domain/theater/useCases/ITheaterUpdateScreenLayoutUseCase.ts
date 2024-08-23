@@ -1,4 +1,4 @@
-import { IScreen } from "@/infrastructure/database/mogodb/models/screenSchema";
+import { IScreen } from "../../../infrastructure/database/mogodb/models/screenSchema";
 
 
 export interface ITheaterUpdateScreenLayoutUseCase {

@@ -1,4 +1,4 @@
-import { SubscriptionData, UserEntity } from "@/domain/user/entities";
+import { SubscriptionData, UserEntity } from "../../../domain/user/entities";
 import { IDependencies } from "../interfaces/IDependencies";
 
 

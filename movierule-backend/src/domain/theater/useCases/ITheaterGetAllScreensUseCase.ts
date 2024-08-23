@@ -1,12 +1,6 @@
-// import { IScreen } from "@/infrastructure/database/mogodb/models/screenSchema";
 
 
-// export interface ITheaterGetAllScreensUseCase {
-//   execute(): Promise<boolean | IScreen[]>;
-// }
-
-
-import { IScreen } from "@/infrastructure/database/mogodb/models/screenSchema";
+import { IScreen } from "../../../infrastructure/database/mogodb/models/screenSchema";
 
 
 export interface ITheaterGetAllScreensUseCase {

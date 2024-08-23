@@ -1,4 +1,4 @@
-import { IBooking } from "@/infrastructure/database/mogodb/models/BookingSchema";
+import { IBooking } from "../../../infrastructure/database/mogodb/models/BookingSchema";
 import { ITheaterDependencies } from "../interfaces/ITheaterDependencies";
 
 export const getALLBookingsUseCase = (dependencies: ITheaterDependencies) => {

@@ -1,8 +1,9 @@
-import { SubscriptionData, UserEntity } from "@/domain/user/entities";
-import { IBooking } from "@/infrastructure/database/mogodb/models/BookingSchema";
-import { IMovie } from "@/infrastructure/database/mogodb/models/movieSchema";
-import { IScreen } from "@/infrastructure/database/mogodb/models/screenSchema";
-import { IShow } from "@/infrastructure/database/mogodb/models/showSchema";
+import { IUserWalletDetails } from "@/infrastructure/database/mogodb/models/userSchema";
+import { SubscriptionData, UserEntity } from "../../../domain/user/entities";
+import { IBooking } from "../../../infrastructure/database/mogodb/models/BookingSchema";
+import { IMovie } from "../../../infrastructure/database/mogodb/models/movieSchema";
+import { IScreen } from "../../../infrastructure/database/mogodb/models/screenSchema";
+import { IShow } from "../../../infrastructure/database/mogodb/models/showSchema";
 
 export interface IRepositories {
   create: (data: UserEntity) => Promise<UserEntity | null>;
@@ -25,5 +26,6 @@ export interface IRepositories {
    userGetOTTMovies:()=> Promise<boolean | IMovie[]>;
    getBookingByIdCancel:(id: string)=>Promise<IBooking | null>;
    createUserSubscription:(userId: string,subscriptionData:SubscriptionData)=> Promise<UserEntity | null>;
-   updateUserSubscription:(userId: string,subscriptionData: Partial<any> )=>Promise<UserEntity | null>
+   updateUserSubscription:(userId: string,subscriptionData: Partial<any> )=>Promise<UserEntity | null>;
+   userWalletDetails:(userId: string)=>Promise<IUserWalletDetails>
 }

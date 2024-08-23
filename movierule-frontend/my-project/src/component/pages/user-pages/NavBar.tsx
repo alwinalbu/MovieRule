@@ -137,6 +137,15 @@ const Navbar: React.FC = () => {
               </NavLink>
             </li>
             <li>
+              <NavLink
+                to="/wallet"
+                className="block py-2 px-4 hover:bg-gray-700 rounded-lg text-white"
+                onClick={closeMenu}
+              >
+                Wallet
+              </NavLink>
+            </li>
+            <li>
               <button
                 onClick={() => {
                   handleLogout();

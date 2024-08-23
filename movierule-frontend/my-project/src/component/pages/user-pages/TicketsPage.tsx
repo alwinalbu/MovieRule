@@ -34,7 +34,7 @@ interface TicketsTabProps {
   bookings: IBooking[];
   loading: boolean;
   error: string | null;
-  onCancel?: (id: string) => void; // Add this prop
+  onCancel?: (id: string) => void; 
 }
 
 const getDateFilter = (date: string, today: string) => {
@@ -47,7 +47,6 @@ const getDateFilter = (date: string, today: string) => {
 };
 
 const TicketsTab: React.FC<TicketsTabProps> = ({
-  title,
   bookings,
   loading,
   error,
@@ -84,8 +83,6 @@ export default function TicketsPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedKey, setSelectedKey] = useState<string>("old-tickets");
   const { user } = useSelector((state: RootState) => state.user);
-
-  console.log(user,"user");
 
   const userId=user?._id;
   console.log(userId, "user id");

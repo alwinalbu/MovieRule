@@ -1,7 +1,7 @@
-import { ICreateUserUseCase, ICheckUserEmailUseCase,IVerifyOtpUseCase, IFindUserByIdUseCase, IUpdateUserPasswordUseCase, IUserGetMoviesUseCase, IGetAllShowUseCase, IGetShowsByMovieUseCase, IUserGetScreenLayoutUseCase, IFindMainUserUseCase, ICreateBookingUseCase, IUpdatePaymentStatusUseCase, IGetAllBookingsUseCase, IUserUpdateSeatStatusUseCase, IUserGetOTTMoviesUseCase, IGetBookingByIdUseCase, IGetQRBookingByIdUseCase, ICreateUserSubscriptionUseCase, IUpdateUserSubscriptionUseCase } from "@/domain/user/useCases";
+import { ICreateUserUseCase, ICheckUserEmailUseCase,IVerifyOtpUseCase, IFindUserByIdUseCase, IUpdateUserPasswordUseCase, IUserGetMoviesUseCase, IGetAllShowUseCase, IGetShowsByMovieUseCase, IUserGetScreenLayoutUseCase, IFindMainUserUseCase, ICreateBookingUseCase, IUpdatePaymentStatusUseCase, IGetAllBookingsUseCase, IUserUpdateSeatStatusUseCase, IUserGetOTTMoviesUseCase, IGetBookingByIdUseCase, IGetQRBookingByIdUseCase, ICreateUserSubscriptionUseCase, IUpdateUserSubscriptionUseCase, IGetUserWalletDetailsUseCase } from "@/domain/user/useCases";
 import { IDependencies } from "./IDependencies";
-import { ILoginUserUseCase } from "@/domain/user/useCases/ILoginUserUseCase";
-import { IFindUserByEmailUseCase } from "@/domain/user/useCases/IFindUserByEmailUseCase";
+import { ILoginUserUseCase } from "../../../domain/user/useCases/ILoginUserUseCase";
+import { IFindUserByEmailUseCase } from "../../../domain/user/useCases/IFindUserByEmailUseCase";
 
 export interface IUseCases {
   createUserUseCase: (dependencies: IDependencies) => ICreateUserUseCase;
@@ -26,5 +26,5 @@ export interface IUseCases {
   getBookingByIdUseCase:(dependencies: IDependencies)=>IGetBookingByIdUseCase;
   createUserSubscriptionUseCase:(dependencies: IDependencies)=>ICreateUserSubscriptionUseCase;
   updateUserSubscriptionUseCase:(dependencies: IDependencies)=>IUpdateUserSubscriptionUseCase;
-
+  getUserWalletDetailsUseCase:(dependencies: IDependencies)=>IGetUserWalletDetailsUseCase;
 }

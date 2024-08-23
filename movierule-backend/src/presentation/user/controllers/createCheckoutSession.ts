@@ -1,5 +1,5 @@
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
-import { IBooking } from "@/infrastructure/database/mogodb/models/BookingSchema";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
+import { IBooking } from "../../../infrastructure/database/mogodb/models/BookingSchema";
 import { NextFunction, Request, Response } from "express";
 import Stripe from "stripe";
 

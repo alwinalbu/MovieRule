@@ -1,8 +1,8 @@
 
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
-import { Otp } from "@/infrastructure/database/mogodb/models/otpSchema";
-import { generateOtp } from "@/utils/otp/generateOtp";
-import { sendOtp } from "@/utils/otp/sendOtp";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
+import { Otp } from "../../../infrastructure/database/mogodb/models/otpSchema";
+import { generateOtp } from "../../../utils/otp/generateOtp";
+import { sendOtp } from "../../../utils/otp/sendOtp";
 import { Request, Response, NextFunction } from "express";
 
 export const signupController = (dependencies: IDependencies) => {
@@ -49,6 +49,8 @@ export const signupController = (dependencies: IDependencies) => {
         dbOtp = await Otp.create({ email: userCredentials.email, otp });
       }
 
+      console.log(dbOtp,"dbotp here");
+      
       // Send OTP to email
       if (dbOtp) {
         await sendOtp(userCredentials.email, otp);

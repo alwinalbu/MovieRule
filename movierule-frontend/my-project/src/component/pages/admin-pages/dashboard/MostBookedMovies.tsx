@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BarChart, BarChartProps } from "@mui/x-charts/BarChart";
 import { Box } from "@mui/material";
-import { commonRequest } from "../../../../config/api"; // Adjust the import path as needed
-import { config } from "../../../../config/constants"; // Adjust the import path as needed
+import { commonRequest } from "../../../../config/api"; 
+import { config } from "../../../../config/constants"; 
 import toast from "react-hot-toast";
 
 type MovieData = {
@@ -11,8 +11,8 @@ type MovieData = {
 };
 
 const chartSetting: Partial<BarChartProps> = {
-  width: 600, // Adjust width as needed
-  height: 400, // Adjust height as needed
+  width: 600, 
+  height: 400, 
   xAxis: [
     {
       label: "Total Bookings",
@@ -69,7 +69,7 @@ export default function MostBookedMoviesChart() {
         width: "100%",
         padding: 2,
         boxSizing: "border-box",
-        overflow: "hidden", // Add this line to handle overflow
+        overflow: "hidden", 
       }}
     >
       <BarChart

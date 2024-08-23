@@ -1,7 +1,7 @@
-import { ITheaterDependencies } from "@/application/theater/interfaces/ITheaterDependencies";
-import { Otp } from "@/infrastructure/database/mogodb/models/otpSchema";
-import { generateOtp } from "@/utils/otp/generateOtp";
-import { sendOtp } from "@/utils/otp/sendOtp";
+import { ITheaterDependencies } from "../../../application/theater/interfaces/ITheaterDependencies";
+import { Otp } from "../../../infrastructure/database/mogodb/models/otpSchema";
+import { generateOtp } from "../../../utils/otp/generateOtp";
+import { sendOtp } from "../../../utils/otp/sendOtp";
 import { NextFunction, Request, Response } from "express";
 
 export const theaterSignupController = (dependencies: ITheaterDependencies) => {

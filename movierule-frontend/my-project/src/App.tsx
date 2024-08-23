@@ -56,47 +56,7 @@ import QrPage from "./component/pages/user-pages/QrPage";
 import SubscriptionSuccess from "./component/pages/user-pages/SubscriptionSuccess";
 import Blocked from "./component/pages/user-pages/Blocked";
 import SubscribedUsersList from "./component/pages/admin-pages/SubscribedUsersList";
-
-// interface IProtectedRoute {
-//   element: JSX.Element;
-//   role?: string;
-// }
-
-// const ProtectedRoute = ({ element, role }: IProtectedRoute) => {
-//   const { user } = useSelector((state: RootState) => state.user);
-//   const { theaterOwner } = useSelector((state: RootState) => state.theater);
-//   const { admin } = useSelector((state: RootState) => state.admin);
-
-
-
-//   let currentUser = null;
-
-//   if (role === "user" && user) {
-//     currentUser = user;
-//   } else if (role === "theatre" && theaterOwner) {
-//     console.log(role,theaterOwner,"inside if case");
-    
-//     currentUser = theaterOwner;
-//   } else if (role === "admin" && admin) {
-//     currentUser = admin;
-//   }
-
-//   console.log(currentUser,"current user");
-
-//   if (currentUser?.status !== "active") {
-//     return <Navigate to="/blocked" />;
-//   }
-  
-//   if (!currentUser) {
-//     return <Navigate to="/" />;
-//   }
-
-//   if (role && currentUser.role !== role) {
-//     return <Navigate to="/not-authorized" />;
-//   }
-
-//   return element;
-// };
+import WalletPage from "./component/pages/user-pages/WalletPage";
 
 
 interface IProtectedRoute {
@@ -201,6 +161,10 @@ function App() {
             path="/stream-library-plan"
             element={<ProtectedRoute element={<StreamPage />} role="user" />}
           />
+          <Route
+            path="/wallet"
+            element={<ProtectedRoute element={<WalletPage />} role="user" />}
+          />
 
           <Route path="/booked-ticket" element={<QrPage />} />
 
@@ -280,8 +244,11 @@ function App() {
             path="/admin/users-list"
             element={<ProtectedRoute element={<UsersList />} role="admin" />}
           />
-          <Route path="/admin/Subscribed-Users-List"
-          element={<ProtectedRoute element={<SubscribedUsersList/>} role="admin"/>}
+          <Route
+            path="/admin/Subscribed-Users-List"
+            element={
+              <ProtectedRoute element={<SubscribedUsersList />} role="admin" />
+            }
           />
           <Route
             path="/admin/movie/:movieId"

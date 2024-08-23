@@ -1,6 +1,6 @@
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
-import { hashPassword } from "@/utils/bcrypt";
-import { verifyForgetPasswordToken } from "@/utils/jwt/verifyForgetPasswordToken";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
+import { hashPassword } from "../../../utils/bcrypt";
+import { verifyForgetPasswordToken } from "../../../utils/jwt/verifyForgetPasswordToken";
 import { Request, Response, NextFunction } from "express";
 
 export const updatePasswordController = (dependencies: IDependencies) => {

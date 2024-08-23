@@ -1,5 +1,5 @@
-import { ITheaterDependencies } from "@/application/theater/interfaces/ITheaterDependencies";
-import { IShow } from "@/infrastructure/database/mogodb/models/showSchema";
+import { ITheaterDependencies } from "../../../application/theater/interfaces/ITheaterDependencies";
+import { IShow } from "../../../infrastructure/database/mogodb/models/showSchema";
 import { NextFunction, Request, Response } from "express";
 
 export const theaterAddShowController = (dependencies: ITheaterDependencies) => {

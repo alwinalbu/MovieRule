@@ -1,7 +1,7 @@
 import { ICreateTheaterUseCase, ILoginTheaterUseCase ,ICheckTheaterEmailUseCase,IVerifyTheaterOtpUseCase, IFindTheaterByIdUseCase, IFindTheaterByEmailUseCase, IUpdateTheaterPasswordUseCase, ITheaterGetAllMoviesUseCase, IAddShowTheaterUseCase, ITheaterGetAllShowsUseCase, IAddScreenTheaterUseCase, ITheaterGetAllScreensUseCase, IUpdateScreenTheaterUseCase, IGetScreenLayoutUseCase, ITheaterUpdateScreenLayoutUseCase, IFetchSnacksUseCase, IGetBookingsByTheaterIdUseCase, IGetBookingDetailsUseCase, IGetALLBookingsUseCase} from "@/domain/theater/useCases";
 import { ITheaterDependencies } from "./ITheaterDependencies";
-import { IAddSnackTheaterUseCase } from "@/domain/theater/useCases/IAddSnackTheaterUseCase";
-import { IGetAllBookingsUseCase } from "@/domain/user/useCases";
+import { IAddSnackTheaterUseCase } from "../../../domain/theater/useCases/IAddSnackTheaterUseCase";
+
 
 
 

@@ -1,9 +1,9 @@
-import { TheaterEntity } from "@/domain/theater/entities";
-import { IBooking } from "@/infrastructure/database/mogodb/models/BookingSchema";
-import { IMovie } from "@/infrastructure/database/mogodb/models/movieSchema";
-import { IScreen } from "@/infrastructure/database/mogodb/models/screenSchema";
-import { IShow } from "@/infrastructure/database/mogodb/models/showSchema";
-import { ISnack } from "@/infrastructure/database/mogodb/models/snackSchema";
+import { TheaterEntity } from "../../../domain/theater/entities";
+import { IBooking } from "../../../infrastructure/database/mogodb/models/BookingSchema";
+import { IMovie } from "../../../infrastructure/database/mogodb/models/movieSchema";
+import { IScreen } from "../../../infrastructure/database/mogodb/models/screenSchema";
+import { IShow } from "../../../infrastructure/database/mogodb/models/showSchema";
+import { ISnack } from "../../../infrastructure/database/mogodb/models/snackSchema";
 
 
 

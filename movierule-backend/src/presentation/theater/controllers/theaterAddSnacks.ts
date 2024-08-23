@@ -1,5 +1,5 @@
-import { ITheaterDependencies } from "@/application/theater/interfaces/ITheaterDependencies";
-import { ISnack } from "@/infrastructure/database/mogodb/models/snackSchema";
+import { ITheaterDependencies } from "../../../application/theater/interfaces/ITheaterDependencies";
+import { ISnack } from "../../../infrastructure/database/mogodb/models/snackSchema";
 
 import { NextFunction, Request, Response } from "express";
 

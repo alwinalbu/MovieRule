@@ -1,6 +1,6 @@
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
 import { Request, Response, NextFunction } from "express";
-import { comparePassword, hashPassword } from "@/utils/bcrypt";
+import { comparePassword, hashPassword } from "../../../utils/bcrypt";
 
 export const updateUserController = (dependencies: IDependencies) => {
   const {

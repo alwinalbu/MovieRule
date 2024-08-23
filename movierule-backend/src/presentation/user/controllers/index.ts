@@ -1,4 +1,4 @@
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
 import { signupController } from "./signup";
 import { verifyOtpController } from "./verifyOtp";
 import { loginUserController } from "./loginUser";
@@ -23,6 +23,7 @@ import { handleCancelTicketController } from "./handleCancelTicket";
 import { createSubscripeCheckoutSession } from "./createSubscripeCheckoutSession";
 import { updateUserSubscriptionController } from "./updateUserSubscription";
 import { getReservation } from "./getReservation";
+import { getUserWalletDetailsController } from "./getUserWalletDetails";
 
 
 export const controllers = (dependencies: IDependencies) => {
@@ -49,9 +50,11 @@ export const controllers = (dependencies: IDependencies) => {
     updateSeatStatus: updateSeatStatusController(dependencies),
     userGetOTTMoviesList: UserGetOTTMoviesListController(dependencies),
     handleCancelTicket: handleCancelTicketController(dependencies),
-    createSubscripeCheckoutSession:createSubscripeCheckoutSession(dependencies),
-    updateUserSubscription:updateUserSubscriptionController(dependencies),
-    reservedSeats: getReservation(dependencies)
+    createSubscripeCheckoutSession:
+      createSubscripeCheckoutSession(dependencies),
+    updateUserSubscription: updateUserSubscriptionController(dependencies),
+    reservedSeats: getReservation(dependencies),
+    getUserWalletDetails:getUserWalletDetailsController(dependencies)
   };
 };
 

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { comparePassword, hashPassword } from "@/utils/bcrypt";
-import { ITheaterDependencies } from "@/application/theater/interfaces/ITheaterDependencies";
+import { comparePassword, hashPassword } from "../../../utils/bcrypt";
+import { ITheaterDependencies } from "../../../application/theater/interfaces/ITheaterDependencies";
 
 export const updateTheaterController = (dependencies: ITheaterDependencies) => {
   const {

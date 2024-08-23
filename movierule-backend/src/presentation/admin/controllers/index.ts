@@ -1,4 +1,4 @@
-import { IAdminDependencies } from "@/application/admin/interfaces/IAdminDependencies";
+import { IAdminDependencies } from "../../../application/admin/interfaces/IAdminDependencies";
 import { loginAdminController } from "./loginAdmin";
 import { logoutAdminController } from "./logoutAdmin";
 import { getAllTheaterAdminController } from "./getAllTheatersListAdmin";

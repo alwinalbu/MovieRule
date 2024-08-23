@@ -17,7 +17,7 @@ const formatDate = (date: string): string => {
 };
 
 const QrPage: React.FC = () => {
- const [searchParams] = useSearchParams();
+ const [_searchParams] = useSearchParams();
  const [booking, setBooking] = useState<any | null>(null);
  const location = useLocation();
 

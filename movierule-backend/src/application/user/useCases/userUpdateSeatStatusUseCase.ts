@@ -1,5 +1,5 @@
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
-import { IScreen } from "@/infrastructure/database/mogodb/models/screenSchema";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
+
 
 export const userUpdateSeatStatusUseCase = (dependencies: IDependencies) => {
   const {

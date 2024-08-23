@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { OAuth2Client } from "google-auth-library";
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
-import { UserEntity } from "@/domain/user/entities";
-import { generateAccessToken, generateRefreshToken } from "@/utils/jwt";
-import { generateRandomString } from "@/utils/generateRamdomString";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
+import { UserEntity } from "../../../domain/user/entities";
+import { generateAccessToken, generateRefreshToken } from "../../../utils/jwt";
+import { generateRandomString } from "../../../utils/generateRamdomString";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export const googleAuthController = (dependencies: IDependencies) => {

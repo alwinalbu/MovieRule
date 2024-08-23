@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
 
 export const updateUserSubscriptionController = (
   dependencies: IDependencies

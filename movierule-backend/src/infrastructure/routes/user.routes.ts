@@ -29,7 +29,8 @@ export const routes = (dependencies: IDependencies) => {
     getQRBookingById,
     createSubscripeCheckoutSession,
     updateUserSubscription,
-    reservedSeats
+    reservedSeats,
+    getUserWalletDetails
   } = controllers(dependencies);
 
   const router = Router();
@@ -80,6 +81,8 @@ export const routes = (dependencies: IDependencies) => {
   router.route("/cancel-ticket/:id").post(handleCancelTicket);
 
   router.route("/reservations/:showId").get(reservedSeats);
+
+  router.route("/get-wallet/:userId").get(jwtMiddleware,getUserWalletDetails);
 
   return router;
 };

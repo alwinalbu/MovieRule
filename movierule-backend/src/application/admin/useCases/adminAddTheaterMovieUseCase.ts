@@ -1,4 +1,4 @@
-import { IMovie } from "@/infrastructure/database/mogodb/models/movieSchema";
+import { IMovie } from "../../../infrastructure/database/mogodb/models/movieSchema";
 import { IAdminDependencies } from "../interfaces/IAdminDependencies";
 
 

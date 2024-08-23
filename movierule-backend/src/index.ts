@@ -1,6 +1,6 @@
 
-import server from "@/presentation/server";
-import { db } from "@/_boot/db_config";
+import server from "./presentation/server";
+import { db } from "./_boot/db_config";
 
 (async () => {
   try {

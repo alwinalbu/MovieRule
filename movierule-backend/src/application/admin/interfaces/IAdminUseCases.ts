@@ -1,6 +1,10 @@
-import { ILoginAdminUseCase } from "@/domain/admin/useCases/ILoginAdminUseCase";
+import { ILoginAdminUseCase } from "../../../domain/admin/useCases/ILoginAdminUseCase";
 import { IAdminDependencies } from "./IAdminDependencies";
-import { IAdminAddOTTMovieUseCase, IAdminAddTheaterMovieUseCase, IAdminDeleteMovieUseCase, IAdminHandleAcceptTheaterUseCase, IAdminHandleBlockUnblockUser, IAdminUpdateMovieUseCase, IGetAllOTTMoviesUseCase, IGetAllTheaterMoviesUseCase, IGetAllTheatersAdmin, IGetAllUsersAdmin, IGetTheaterDetailsUseCase } from "@/domain/admin/useCases";
+import { IAdminAddOTTMovieUseCase, IAdminAddTheaterMovieUseCase, IAdminDeleteMovieUseCase,
+   IAdminHandleAcceptTheaterUseCase, IAdminHandleBlockUnblockUser, IAdminUpdateMovieUseCase, 
+   IGetAllOTTMoviesUseCase, IGetAllTheaterMoviesUseCase, IGetAllTheatersAdmin, 
+   IGetAllUsersAdmin, 
+   IGetTheaterDetailsUseCase } from "../../../domain/admin/useCases";
 
 export interface IAdminUseCases {
   loginAdminUseCase: (dependencies: IAdminDependencies) => ILoginAdminUseCase;

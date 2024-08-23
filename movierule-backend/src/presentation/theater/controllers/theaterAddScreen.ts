@@ -1,6 +1,6 @@
-import { ITheaterDependencies } from "@/application/theater/interfaces/ITheaterDependencies";
-import { IScreen } from "@/infrastructure/database/mogodb/models/screenSchema";
-import { Theater } from "@/infrastructure/database/mogodb/models/theaterSchema";
+import { ITheaterDependencies } from "../../../application/theater/interfaces/ITheaterDependencies";
+import { IScreen } from "../../../infrastructure/database/mogodb/models/screenSchema";
+import { Theater } from "../../../infrastructure/database/mogodb/models/theaterSchema";
 import { NextFunction, Request, Response } from "express";
 
 export const theaterAddScreenController = (

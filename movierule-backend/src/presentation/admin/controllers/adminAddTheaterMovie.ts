@@ -1,4 +1,4 @@
-import { IAdminDependencies } from "@/application/admin/interfaces/IAdminDependencies";
+import { IAdminDependencies } from "../../../application/admin/interfaces/IAdminDependencies";
 import { NextFunction, Request, Response } from "express";
 
 export const adminAddTheaterMovieController = (

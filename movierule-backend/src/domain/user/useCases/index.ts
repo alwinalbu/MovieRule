@@ -18,3 +18,4 @@ export * from './IUserGetOTTMoviesUseCase';
 export * from './IGetBookingByIdUseCase';
 export * from './ICreateUserSubscriptionUseCase';
 export * from './IUpdateUserSubscriptionUseCase';
+export * from './IGetUserWalletDetailsUseCase';

@@ -12,7 +12,6 @@ import {
   Button,
   useDisclosure,
   Input,
-  Tooltip,
   Spinner,
 } from "@nextui-org/react";
 import toast from "react-hot-toast";
@@ -63,11 +62,10 @@ const TheatreScreenAddList: React.FC = () => {
     cols: 10,
     price: 0,
   });
-  const [initialFormData, setInitialFormData] = useState<FormData | null>(null);
+  const [_initialFormData, setInitialFormData] = useState<FormData | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { theaterOwner } = useSelector((state: RootState) => state.theater);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(8); 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -191,7 +189,7 @@ const TheatreScreenAddList: React.FC = () => {
         setScreens([...screens, response.data]);
       }
 
-      onOpenChange(false);
+      onOpenChange();
       setFormData({
         name: "",
         quality: "",

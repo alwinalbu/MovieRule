@@ -18,3 +18,4 @@ export * from './userGetOTTMovies';
 export * from './getBookingByIdCancel';
 export * from './createUserSubscription';
 export * from './updateUserSubscription';
+export * from './userWalletDetails';

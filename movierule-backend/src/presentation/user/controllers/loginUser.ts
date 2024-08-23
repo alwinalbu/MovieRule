@@ -1,5 +1,5 @@
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
-import { generateAccessToken, generateRefreshToken } from "@/utils/jwt";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
+import { generateAccessToken, generateRefreshToken } from "../../../utils/jwt";
 import { NextFunction, Request, Response } from "express";
 
 export const loginUserController = (dependencies: IDependencies) => {

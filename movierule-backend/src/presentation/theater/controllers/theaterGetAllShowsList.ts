@@ -1,5 +1,5 @@
-// application/show/controllers/theaterGetAllShowsListController.ts
-import { ITheaterDependencies } from "@/application/theater/interfaces/ITheaterDependencies";
+
+import { ITheaterDependencies } from "../../../application/theater/interfaces/ITheaterDependencies";
 import { NextFunction, Request, Response } from "express";
 
 export const theaterGetAllShowsListController = (

@@ -1,6 +1,6 @@
 
-import { IAdminDependencies } from "@/application/admin/interfaces/IAdminDependencies";
-import { generateAccessToken, generateRefreshToken } from "@/utils/jwt";
+import { IAdminDependencies } from "../../../application/admin/interfaces/IAdminDependencies";
+import { generateAccessToken, generateRefreshToken } from "../../../utils/jwt";
 import { NextFunction, Request, Response } from "express";
 
 export const loginAdminController = (dependencies: IAdminDependencies) => {

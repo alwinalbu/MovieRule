@@ -1,5 +1,5 @@
 
-import { IBooking } from "@/infrastructure/database/mogodb/models/BookingSchema";
+import { IBooking } from "../../../infrastructure/database/mogodb/models/BookingSchema";
 import { IDependencies } from "../interfaces/IDependencies";
 
 export const getQRBookingByIdUseCase = (dependencies: IDependencies) => {

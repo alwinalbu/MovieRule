@@ -1,5 +1,5 @@
-// theaterGetScreenLayoutController.ts
-import { ITheaterDependencies } from "@/application/theater/interfaces/ITheaterDependencies";
+
+import { ITheaterDependencies } from "../../../application/theater/interfaces/ITheaterDependencies";
 import { Request, Response, NextFunction } from "express";
 
 export const theaterGetScreenLayoutController = (dependencies: ITheaterDependencies) => {

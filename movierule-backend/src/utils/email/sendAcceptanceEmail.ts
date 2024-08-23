@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { EMAIL, PASSWORD } from "@/application/config/config";
+import { EMAIL, PASSWORD } from "../../application/config/config";
 
 export const sendAcceptanceEmail = async (email: string, username: string) => {
  

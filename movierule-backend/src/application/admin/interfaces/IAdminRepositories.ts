@@ -1,7 +1,7 @@
-import { AdminEntity } from "@/domain/admin/entities";
-import { TheaterEntity } from "@/domain/theater/entities";
-import { UserEntity } from "@/domain/user/entities";
-import { IMovie } from "@/infrastructure/database/mogodb/models/movieSchema";
+import { AdminEntity } from "../../../domain/admin/entities";
+import { TheaterEntity } from "../../../domain/theater/entities";
+import { UserEntity } from "../../../domain/user/entities";
+import { IMovie } from "../../../infrastructure/database/mogodb/models/movieSchema";
 
 export interface IAdminRepositories {
   adminFindByEmail: (email: string) => Promise<AdminEntity | null>;

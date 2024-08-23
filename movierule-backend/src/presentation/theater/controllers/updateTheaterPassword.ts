@@ -1,6 +1,6 @@
-import { ITheaterDependencies } from "@/application/theater/interfaces/ITheaterDependencies";
-import { hashPassword } from "@/utils/bcrypt";
-import { verifyForgetPasswordToken } from "@/utils/jwt/verifyForgetPasswordToken";
+import { ITheaterDependencies } from "../../../application/theater/interfaces/ITheaterDependencies";
+import { hashPassword } from "../../../utils/bcrypt";
+import { verifyForgetPasswordToken } from "../../../utils/jwt/verifyForgetPasswordToken";
 import { Request, Response, NextFunction } from "express";
 
 export const updateTheaterPasswordController = (

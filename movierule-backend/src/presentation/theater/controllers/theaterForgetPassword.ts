@@ -1,6 +1,6 @@
-import { ITheaterDependencies } from "@/application/theater/interfaces/ITheaterDependencies"
-import { generateForgotPasswordToken } from "@/utils/jwt/generateForgotPasswordToken";
-import { sendResetPasswordEmail } from "@/utils/sendResetPasswordEmail";
+import { ITheaterDependencies } from "../../../application/theater/interfaces/ITheaterDependencies"
+import { generateForgotPasswordToken } from "../../../utils/jwt/generateForgotPasswordToken";
+import { sendResetPasswordEmail } from "../../../utils/sendResetPasswordEmail";
 import { Request, Response, NextFunction } from "express";
 
 export const forgotTheaterPasswordController = (dependencies:ITheaterDependencies) => {

@@ -1,5 +1,5 @@
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
-import { Reservation } from "@/infrastructure/database/mogodb/models/Reservation";
+import { IDependencies } from "../../../application/user/interfaces/IDependencies";
+import { Reservation } from "../../../infrastructure/database/mogodb/models/Reservation";
 import { NextFunction, Request, Response } from "express";
 
 export const getReservation = (dependencies: IDependencies) => {

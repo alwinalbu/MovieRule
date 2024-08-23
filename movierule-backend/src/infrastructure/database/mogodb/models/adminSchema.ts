@@ -1,4 +1,4 @@
-import { AdminEntity } from "@/domain/admin/entities/adminEntity";
+import { AdminEntity } from "../../../../domain/admin/entities/adminEntity";
 import { Schema, model } from "mongoose";
 
 const adminSchema = new Schema<AdminEntity>(

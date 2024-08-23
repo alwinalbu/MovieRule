@@ -3,6 +3,7 @@ import { Gauge } from "@mui/x-charts/Gauge";
 import { TheaterEntity } from "../../../../interfaces/theater/Theaterinterface";
 import { commonRequest } from "../../../../config/api";
 import { config } from "../../../../config/constants";
+import { Spinner } from "@nextui-org/react";
 
 const MyGaugeComponent: React.FC = () => {
   const [theaters, setTheaters] = useState<TheaterEntity[]>([]);
@@ -39,7 +40,15 @@ const MyGaugeComponent: React.FC = () => {
     (theater) => theater.status === "active"
   ).length;
 
+  if (loading) {
+    <div className="flex justify-center items-center h-60">
+      <Spinner size="lg" />
+    </div>;
+  }
 
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div style={{ position: "relative", width: "300px", height: "300px" }}>
