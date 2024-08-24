@@ -1,6 +1,5 @@
 import { TheaterEntity } from "../../../../../domain/theater/entities";
-import { Theater } from "../../models/theaterSchema"; // Make sure to adjust the import path
-
+import { Theater } from "../../models/theaterSchema"; 
 export const updateTheaterStatus = async (
   id: string,
   status: string

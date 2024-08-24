@@ -1,4 +1,4 @@
-import { TheaterEntity } from ".//../../../../../domain/theater/entities";
+import { TheaterEntity } from "../../../../../domain/theater/entities";
 import { Theater } from "../../models/theaterSchema"; // Adjust the import path if necessary
 
 export const getTheaterById = async (
