@@ -54,10 +54,14 @@ export const loginAdminController = (dependencies: IAdminDependencies) => {
       // Set cookies with tokens
       res.cookie("access_token", accessToken, {
         httpOnly: true,
+        secure: true,
+        sameSite: "none",
       });
 
       res.cookie("refresh_token", refreshToken, {
         httpOnly: true,
+        secure: true,
+        sameSite: "none",
       });
 
       return res.status(200).json({
