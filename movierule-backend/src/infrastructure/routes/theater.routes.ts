@@ -1,6 +1,6 @@
-import { ITheaterDependencies } from "@/application/theater/interfaces/ITheaterDependencies";
-import { theaterControllers } from "@/presentation/theater/controllers";
-import { jwtMiddleware } from "@/utils/middlewares/VerifyToken";
+import { ITheaterDependencies } from "../../application/theater/interfaces/ITheaterDependencies";
+import { theaterControllers } from "../../presentation/theater/controllers";
+import { jwtMiddleware } from "../../utils/middlewares/VerifyToken";
 import { Router } from "express";
 
 export const theaterRoutes = (dependencies: ITheaterDependencies) => {

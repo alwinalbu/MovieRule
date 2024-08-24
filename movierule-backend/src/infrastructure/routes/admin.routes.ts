@@ -1,5 +1,5 @@
-import { IAdminDependencies } from "@/application/admin/interfaces/IAdminDependencies";
-import { admincontrollers } from "@/presentation/admin/controllers";
+import { IAdminDependencies } from "../../application/admin/interfaces/IAdminDependencies";
+import { admincontrollers } from "../../presentation/admin/controllers";
 
 import { Router } from "express";
 

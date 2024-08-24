@@ -1,4 +1,4 @@
-import { AdminEntity } from "@/domain/admin/entities";
+import { AdminEntity } from "../../../../../domain/admin/entities";
 import { Admin } from "../../models/adminSchema";
 
 export const adminFindByEmail = async (

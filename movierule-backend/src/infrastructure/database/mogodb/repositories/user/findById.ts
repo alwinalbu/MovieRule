@@ -1,4 +1,4 @@
-import { UserEntity } from "@/domain/user/entities";
+import { UserEntity } from "../../../../../domain/user/entities";
 import { User } from "../../models/userSchema";
 
 export const findById=async(id:string):Promise<UserEntity|null>=>{

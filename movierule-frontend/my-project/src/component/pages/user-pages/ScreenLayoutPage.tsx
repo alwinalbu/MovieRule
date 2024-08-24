@@ -743,23 +743,25 @@ const ScreenLayoutPage: React.FC = () => {
   };
 
   //-------------------------------------Food Modal open-------------------------------------------------------
-const handleSave = () => {
-  if (selectedSeats.size === 0) {
-    toast.error("Please select at least one seat to proceed.");
-    return;
-  }
+  const handleSave = () => {
+    if (selectedSeats.size === 0) {
+      toast.error("Please select at least one seat to proceed.");
+      return;
+    }
 
-  if (snacks.length > 0) {
-    setIsFoodModalOpen(true);
-  } else {
-    setOfferModalOpen(true);
-  }
-};
+    if (snacks.length > 0) {
+      setIsFoodModalOpen(true);
+    } else {
+      setOfferModalOpen(true);
+    }
+  };
 
   //-------------------------------------Handling the booking section..........................................
 
   const handleBooking = async (discountedAmount?: number) => {
-    const totalPrice = discountedAmount || calculateTotalPrice(); // Use discounted amount if available
+    const totalPrice = discountedAmount || calculateTotalPrice(); 
+    console.log(totalPrice,"total price");
+    
     const bookingData = {
       selectedSeats: Array.from(selectedSeats),
       selectedItems: Object.keys(selectedItems).map((item) => {
@@ -774,7 +776,7 @@ const handleSave = () => {
       deliveryOptions: Object.keys(deliveryOptions)
         .filter((key) => deliveryOptions[key as keyof typeof deliveryOptions])
         .map((key) => key),
-      totalAmount: totalPrice, // Use the total amount with discount if applicable
+      totalAmount: totalPrice, 
       theaterName: screenData?.theaterId.username ?? "",
       screenName: screenData?.name ?? "",
       showTime: startTime,
@@ -852,10 +854,17 @@ const handleSave = () => {
   //------------------------------------------Delivery Option-------------------------------------------------
 
   const handleDeliveryOptionChange = (option: "start" | "halfTime") => {
-    setDeliveryOptions((prevOptions) => ({
-      ...prevOptions,
-      [option]: !prevOptions[option],
-    }));
+    if (option === "start") {
+      setDeliveryOptions({
+        start: true,
+        halfTime: false,
+      });
+    } else if (option === "halfTime") {
+      setDeliveryOptions({
+        start: false,
+        halfTime: true,
+      });
+    }
   };
 
   //------------------------------------------Handling of Food Items------------------------------------------
@@ -979,19 +988,14 @@ const handleSave = () => {
         )}
       </div>
       {/* Food Modal */}
+      {/* <div className="bg-red-500 h-screen w-full"></div> */}
       <Modal
         isOpen={isFoodModalOpen}
         onClose={() => setIsFoodModalOpen(false)}
-        size="lg"
-        className="bg-black text-white  fixed inset-0 flex items-center justify-center"
+        size="3xl"
+        className="bg-black text-white inset-0 flex items-center justify-center"
       >
-        <ModalContent
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <ModalContent className="">
           <ModalHeader>
             <h3 className="text-xl font-semibold">Select Your Snacks</h3>
           </ModalHeader>
@@ -1034,25 +1038,24 @@ const handleSave = () => {
               ))
             )}
           </ModalBody>
-          <ModalFooter>
-            <div className="flex flex-col md:flex-row md:items-center text-center md:text-left">
-              <span className="mr-2 mb-2 md:mb-0">Delivery Options:</span>
+          <ModalFooter className="flex items-center justify-center w-full">
+            {/* <div className="flex flex-col md:flex-row md:items-center text-center md:text-left"> */}
               <div className="flex flex-col md:flex-row md:items-center">
+              <span className="mr-2 mb-2 md:mb-0">Delivery Options:</span>
                 <Checkbox
                   checked={deliveryOptions.start}
                   onChange={() => handleDeliveryOptionChange("start")}
-                  className="mr-4 mb-2 md:mb-0"
+                  className="me-2"
                 >
-                  Start of Show
+                  <label className="text-white">Start of Show</label>
                 </Checkbox>
                 <Checkbox
                   checked={deliveryOptions.halfTime}
                   onChange={() => handleDeliveryOptionChange("halfTime")}
                 >
-                  Half Time
+                  <label className="text-white">Half Time</label>
                 </Checkbox>
               </div>
-            </div>
             <Button
               onClick={() => {
                 if (
@@ -1077,7 +1080,7 @@ const handleSave = () => {
         isOpen={isOfferModalOpen}
         onClose={() => setOfferModalOpen(false)}
         closeButton
-        className="bg-black text-white fixed inset-0 flex items-center justify-center"
+        className="bg-black text-white inset-0 flex items-center justify-center"
       >
         <ModalContent
           style={{

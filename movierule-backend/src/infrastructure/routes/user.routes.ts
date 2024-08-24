@@ -1,6 +1,6 @@
-import { IDependencies } from "@/application/user/interfaces/IDependencies";
-import { controllers } from "@/presentation/user/controllers";
-import { jwtMiddleware } from "@/utils/middlewares/VerifyToken";
+import { IDependencies } from "../../application/user/interfaces/IDependencies";
+import { controllers } from "../../presentation/user/controllers";
+import { jwtMiddleware } from "../../utils/middlewares/VerifyToken";
 
 import { Router } from "express";
 

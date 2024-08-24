@@ -29,9 +29,17 @@ export const createCheckoutSessionController = (dependencies: IDependencies) => 
         user
       } = req.body;
 
+    //  const getTotalPrice = (selectedItems: any[]): number => {
+    //    return selectedItems.reduce((total, item) => {
+    //      return total + item.price * item.quantity;
+    //    }, 0);
+    //  };
+
     
 
       console.log(user,"user id backend ");
+      console.log(totalAmount,"total amount backend");
+      
       
 
       // Build line items array for Stripe
@@ -66,9 +74,9 @@ export const createCheckoutSessionController = (dependencies: IDependencies) => 
             currency: "INR",
             product_data: {
               name: item.name,
-              images: [item.image], // Ensure this is an array
+              images: [item.image], 
             },
-            unit_amount: Math.floor(item.price * 100), // Convert to smallest currency unit
+            unit_amount:0, 
           },
           quantity: item.quantity,
         })),

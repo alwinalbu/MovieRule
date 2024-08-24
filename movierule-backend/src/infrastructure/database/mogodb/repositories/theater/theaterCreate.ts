@@ -1,4 +1,4 @@
-import { TheaterEntity } from "@/domain/theater/entities";
+import { TheaterEntity } from "../../../../../domain/theater/entities";
 import { Theater } from "../../models/theaterSchema";
 
 export const theaterCreate = async (data: TheaterEntity): Promise<TheaterEntity | null> => {

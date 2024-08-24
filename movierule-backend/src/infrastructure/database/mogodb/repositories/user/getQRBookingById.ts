@@ -1,7 +1,7 @@
 import {
   Booking,
   IBooking,
-} from "@/infrastructure/database/mogodb/models/BookingSchema";
+} from "../../../../../infrastructure/database/mogodb/models/BookingSchema";
 
 export const getQRBookingById = async (
   bookingId: string

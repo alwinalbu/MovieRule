@@ -1,7 +1,7 @@
 import {
   Booking,
   IBooking,
-} from "@/infrastructure/database/mogodb/models/BookingSchema";
+} from "../../../../../infrastructure/database/mogodb/models/BookingSchema";
 
 export const getBookingByIdCancel = async (id: string): Promise<IBooking | null> => {
   try {

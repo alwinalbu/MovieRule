@@ -1,4 +1,4 @@
-import { Booking, IBooking } from "../../models/BookingSchema";
+import { Booking} from "../../models/BookingSchema";
 import { ObjectId } from "mongoose";
 import { Movie } from "../../models/movieSchema";
 

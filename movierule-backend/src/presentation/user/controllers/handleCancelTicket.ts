@@ -1,5 +1,5 @@
 
-import { User } from "@/infrastructure/database/mogodb/models/userSchema";
+import { User } from "../../../infrastructure/database/mogodb/models/userSchema";
 import { IDependencies } from "../../../application/user/interfaces/IDependencies";
 import { Booking } from "../../../infrastructure/database/mogodb/models/BookingSchema";
 import { Reservation } from "../../../infrastructure/database/mogodb/models/Reservation";
