@@ -36,8 +36,8 @@ export const createSubscripeCheckoutSession = (dependencies: IDependencies) => {
           },
         ],
         mode: "payment", // Use "payment" mode for one-time payments
-        success_url: `http://localhost:5173/subscriptionSuccess?session_id={CHECKOUT_SESSION_ID}&user_id=${userId}`,
-        cancel_url: `http://localhost:5173/subscriptionCancel?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `https://movie-rule.vercel.app/subscriptionSuccess?session_id={CHECKOUT_SESSION_ID}&user_id=${userId}`,
+        cancel_url: `https://movie-rule.vercel.app/subscriptionCancel?session_id={CHECKOUT_SESSION_ID}`,
       });
 
       // Update user with subscription details

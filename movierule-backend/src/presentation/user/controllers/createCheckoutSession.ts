@@ -128,8 +128,8 @@ export const createCheckoutSessionController = (dependencies: IDependencies) => 
         payment_method_types: ["card"],
         line_items: lineItems,
         mode: "payment",
-        success_url: `http://localhost:5173/paymentSuccess?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `http://localhost:5173/paymentCancel?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `https://movie-rule.vercel.app/paymentSuccess?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `https://movie-rule.vercel.app/paymentCancel?session_id={CHECKOUT_SESSION_ID}`,
       });
 
         const bookingData:IBooking = {
