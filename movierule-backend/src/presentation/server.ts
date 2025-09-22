@@ -19,19 +19,24 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-const allowedOrigins = [process.env.CLIENT_URL!];
+// const allowedOrigins = [process.env.CLIENT_URL!];
 
-const clientUrl = process.env.CLIENT_URL;
+// const clientUrl = process.env.CLIENT_URL;
 
-console.log(`Client URL: ${clientUrl}`);
+// console.log(`Client URL: ${clientUrl}`);
 
 const corsOptions = {
-  origin: allowedOrigins,
+  origin: [
+    "https://movie-rule.vercel.app",  // main frontend domain
+    /\.vercel\.app$/,                 // allow all Vercel preview deployments
+    "http://localhost:5173"           // local dev
+  ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
 
 app.use(cors(corsOptions));
+
 
 
 
