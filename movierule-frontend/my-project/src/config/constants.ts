@@ -1,5 +1,6 @@
-export const URL = "https://totetreasureshub.shop";
+// export const URL = "https://totetreasureshub.shop";
 // export const URL = "http://localhost:4001";
+export const URL = import.meta.env.VITE_API_URL;
 
 export const config = {
   headers: {
