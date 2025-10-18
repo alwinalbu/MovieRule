@@ -75,9 +75,11 @@ app.use("/contact", contactRoutes);
 app.use("/ott", movieRoutes);
 
 // ✅ 404 Fallback (keep this at the very end)
-app.use("*", (req: Request, res: Response) => {
+app.use("*", (req, res, next) => {
+  if (req.originalUrl.startsWith("/socket.io")) return next();
   res.status(404).json({ success: false, message: "API Not Found" });
 });
+
 
 // ✅ Auto cleanup expired seat locks
 setInterval(async () => {
