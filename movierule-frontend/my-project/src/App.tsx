@@ -1,14 +1,14 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./redux/store";
 
 // Loader
-import MovieRuleLoader from "./component/common/MovieRuleLoader";
+// import MovieRuleLoader from "./component/common/MovieRuleLoader";
 
 // ---------- User Pages ----------
-import MainPage from "./component/pages/user-pages/MainPage";
+// import MainPage from "./component/pages/user-pages/MainPage";
 import SignUp from "./component/pages/user-pages/Signup";
 import Login from "./component/pages/user-pages/Login";
 import VerifyOTP from "./component/pages/user-pages/VerifyOTP";
@@ -69,6 +69,7 @@ import TheaterMoviesPage from "./component/pages/theater-pages/TheaterMoviesPage
 import { getCurrentAuth } from "./utlis/auth";
 import PendingApproval from "./component/pages/theater-pages/PendingApproval";
 import ManageShowPage from "./component/pages/theater-pages/ManageShowPage";
+import LoaderWrapper from "./component/pages/LoaderWrapper";
 
 /* ---------------- ProtectedRoute ---------------- */
 interface IProtectedRoute {
@@ -131,7 +132,7 @@ const ProtectedRoute: React.FC<IProtectedRoute> = ({ element, role }) => {
 function App() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const [initialLoading, setInitialLoading] = useState(true);
+  // const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
     const fetchAuth = async () => {
@@ -168,19 +169,21 @@ function App() {
       } catch (err) {
         console.error("Failed to fetch auth state:", err);
       }
+      
     };
 
     fetchAuth();
-    const timer = setTimeout(() => setInitialLoading(false), 5000);
-    return () => clearTimeout(timer);
+    // const timer = setTimeout(() => setInitialLoading(false), 5000);
+    // return () => clearTimeout(timer);
   }, [dispatch, navigate]);
 
-  if (initialLoading) return <MovieRuleLoader />;
+  // if (initialLoading) return <MovieRuleLoader />;
 
   return (
     <Routes>
       {/* ---------- Public ---------- */}
-      <Route path="/" element={<MainPage />} />
+      {/* <Route path="/" element={<MainPage />} /> */}
+      <Route path="/" element={<LoaderWrapper />} />
       <Route path="/movie/:movieId" element={<LandingPageMovieDetails />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<Login />} />
@@ -245,9 +248,7 @@ function App() {
       />
       <Route
         path="/theatre/show/manage"
-        element={
-          <ProtectedRoute element={<ManageShowPage />} role="theatre" />
-        }
+        element={<ProtectedRoute element={<ManageShowPage />} role="theatre" />}
       />
       <Route
         path="/theater/movies"

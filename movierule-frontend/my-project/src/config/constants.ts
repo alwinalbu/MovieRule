@@ -1,6 +1,6 @@
 // export const URL = "https://totetreasureshub.shop";
-// export const URL = "https://movierule.shop";
-export const URL = "http://localhost:4001";
+export const URL = "https://movierule.shop";
+// export const URL = "http://localhost:4001";
 
 export const config = {
   headers: {
