@@ -75,10 +75,14 @@ app.use("/contact", contactRoutes);
 app.use("/ott", movieRoutes);
 
 // ✅ 404 Fallback (keep this at the very end)
-app.use("*", (req, res, next) => {
-  if (req.originalUrl.startsWith("/socket.io")) return next();
-  res.status(404).json({ success: false, message: "API Not Found" });
+app.use((req: Request, res: Response, next) => {
+  // If this is a Socket.IO polling request, skip the 404 handler completely
+  if (req.path.startsWith("/socket.io")) {
+    return next(); // Let Socket.IO handle it
+  }
+  return res.status(404).json({ success: false, message: "API Not Found" });
 });
+
 
 
 // ✅ Auto cleanup expired seat locks
