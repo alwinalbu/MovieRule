@@ -11,7 +11,6 @@ import { adminDependencies } from "../_boot/adminDependencies";
 import { theaterRoutes, routes, adminRoutes } from "../infrastructure/routes";
 import authRouter from "../infrastructure/routes/authRoutes";
 import contactRoutes from "../infrastructure/routes/contactRoutes";
-
 import { SeatLock } from "../infrastructure/database/mogodb/models/SeatLock";
 import movieRoutes from "../infrastructure/routes/movieRoutes";
 
@@ -21,14 +20,9 @@ const app: Application = express();
 app.set("trust proxy", 1);
 const server = http.createServer(app);
 
-// ✅ SOCKET.IO setup
-// const io = new SocketIOServer(server, {
-//   cors: {
-//     origin: process.env.CLIENT_URL,
-//     credentials: true,
-//   },
-// });
+// ✅ Socket.IO setup — with explicit path
 const io = new SocketIOServer(server, {
+  path: "/socket.io/",
   cors: {
     origin: [
       "https://movie-rule.vercel.app",
@@ -39,34 +33,7 @@ const io = new SocketIOServer(server, {
   },
 });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-// app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
-app.use(
-  cors({
-    origin: [
-      "https://movie-rule.vercel.app",
-      "https://www.movie-rule.vercel.app",
-    ],
-    credentials: true,
-  })
-);
-
-// ✅ ROUTES
-app.use("/", routes(dependencies));
-app.use("/theater", theaterRoutes(theaterDependencies));
-app.use("/admin", adminRoutes(adminDependencies));
-app.use("/auth", authRouter);
-app.use("/contact", contactRoutes);
-app.use("/ott", movieRoutes);
-
-// ✅ 404 fallback
-app.use("*", (req: Request, res: Response) => {
-  res.status(404).json({ success: false, message: "API Not Found" });
-});
-
-// ✅ SOCKET.IO events
+// ✅ Socket.IO event handlers (put this BEFORE routes)
 io.on("connection", (socket) => {
   console.log("🟢 Socket connected:", socket.id);
 
@@ -85,7 +52,34 @@ io.on("connection", (socket) => {
   });
 });
 
-// ✅ Auto-cleanup expired seat locks every 30s
+// ✅ Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: [
+      "https://movie-rule.vercel.app",
+      "https://www.movie-rule.vercel.app",
+    ],
+    credentials: true,
+  })
+);
+
+// ✅ Routes
+app.use("/", routes(dependencies));
+app.use("/theater", theaterRoutes(theaterDependencies));
+app.use("/admin", adminRoutes(adminDependencies));
+app.use("/auth", authRouter);
+app.use("/contact", contactRoutes);
+app.use("/ott", movieRoutes);
+
+// ✅ 404 Fallback (keep this at the very end)
+app.use("*", (req: Request, res: Response) => {
+  res.status(404).json({ success: false, message: "API Not Found" });
+});
+
+// ✅ Auto cleanup expired seat locks
 setInterval(async () => {
   const now = new Date();
   const expiredLocks = await SeatLock.find({ expiresAt: { $lt: now } });
