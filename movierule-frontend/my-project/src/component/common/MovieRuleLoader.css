@@ -1,0 +1,63 @@
+.movierule-loader-container {
+    background: black;
+    color: #e50914;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.movierule-logo {
+    font-size: 6rem;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    animation: fadeIn 2s ease-in-out forwards;
+}
+
+.movierule-logo .letter {
+    position: relative;
+    display: inline-block;
+    color: transparent;
+    background: linear-gradient(90deg, #e50914, #b20710);
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: flicker 1.5s infinite alternate;
+}
+
+.loading-text {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: #e50914;
+    opacity: 0;
+    animation: fadeIn 3s ease-in forwards;
+    animation-delay: 1s;
+}
+
+/* Animations */
+@keyframes flicker {
+    0% {
+        opacity: 0.8;
+        text-shadow: 0 0 5px #e50914;
+    }
+
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 20px #ff0a16, 0 0 30px #e50914;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

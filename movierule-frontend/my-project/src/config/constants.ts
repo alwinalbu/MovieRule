@@ -1,0 +1,14 @@
+// export const URL = "https://totetreasureshub.shop";
+// export const URL = "https://movierule.shop";
+export const URL = "http://localhost:4001";
+
+export const config = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
+};
+
+export const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+
