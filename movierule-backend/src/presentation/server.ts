@@ -62,6 +62,7 @@ app.use(
       "https://movie-rule.vercel.app",
       "https://www.movie-rule.vercel.app",
     ],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
 );

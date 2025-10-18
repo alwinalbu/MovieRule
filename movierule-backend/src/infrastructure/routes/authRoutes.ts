@@ -30,7 +30,7 @@ authRouter.get("/current", jwtMiddleware(), async (req, res) => {
           _id: account._id,
           email: account.email,
           role: account.role,
-          status: account.status || "active", // ✅ always send status
+          status: account.status || "active", 
         },
       });
 
@@ -64,7 +64,6 @@ authRouter.get("/current", jwtMiddleware(), async (req, res) => {
           _id: account._id,
           email: account.email,
           role: account.role,
-          // ❌ no status for admin
         },
       });
 
