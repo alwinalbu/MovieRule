@@ -1,3 +1,75 @@
+// import { IDependencies } from "../../../application/user/interfaces/IDependencies";
+// import { SubscriptionData } from "../../../domain/user/entities";
+// import { NextFunction, Request, Response } from "express";
+// import Stripe from "stripe";
+
+// export const createSubscripeCheckoutSession = (dependencies: IDependencies) => {
+//   const {
+//     useCases: { createUserSubscriptionUseCase },
+//   } = dependencies;
+
+//   return async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//       const stripeInstance = new Stripe(process.env.STRIPE_SECRET as string);
+
+//       const { amount, userId } = req.body;
+
+//       console.log(req.body, "req body");
+
+//       console.log(amount, "amount backend");
+//       console.log(userId, "user id backend");
+
+//       const clientUrl = process.env.CLIENT_URL as string;
+
+//       // Create Stripe checkout session for subscription
+//       const session = await stripeInstance.checkout.sessions.create({
+//         payment_method_types: ["card"],
+//         line_items: [
+//           {
+//             price_data: {
+//               currency: "INR",
+//               product_data: {
+//                 name: "Subscription Plan",
+//               },
+//               unit_amount: Math.floor(amount * 100),
+//             },
+//             quantity: 1,
+//           },
+//         ],
+//         mode: "payment", // Use "payment" mode for one-time payments
+//         success_url: `${clientUrl}/subscriptionSuccess?session_id={CHECKOUT_SESSION_ID}&user_id=${userId}`,
+//         cancel_url: `${clientUrl}/subscriptionCancel?session_id={CHECKOUT_SESSION_ID}`,
+//       });
+
+//       // Update user with subscription details
+//       const subscriptionData: SubscriptionData = {
+//         status: "initiated",
+//         sessionId: session.id,
+//         amount: amount,
+//         paymentStatus: "pending",
+//       };
+
+//       const updatedUser = await createUserSubscriptionUseCase(
+//         dependencies
+//       ).execute(userId, subscriptionData);
+
+//       if (!updatedUser) {
+//         throw new Error("User subscription update failed");
+//       }
+
+//       console.log(updatedUser, "user is updated here in backend");
+
+//       res.status(200).json({
+//         success: true,
+//         id: session.id,
+//         message: "Subscription session created",
+//       });
+//     } catch (error: any) {
+//       console.error("Error creating subscription session", error);
+//       next(error);
+//     }
+//   };
+// };
 
 import { IDependencies } from "../../../application/user/interfaces/IDependencies";
 import { SubscriptionData } from "../../../domain/user/entities";
@@ -12,17 +84,16 @@ export const createSubscripeCheckoutSession = (dependencies: IDependencies) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const stripeInstance = new Stripe(process.env.STRIPE_SECRET as string);
-
       const { amount, userId } = req.body;
 
-      console.log(req.body, "req body");
+      console.log("📩 Subscription request:", req.body);
 
-      console.log(amount, "amount backend");
-      console.log(userId, "user id backend");
+      const isProduction = process.env.NODE_ENV === "production";
+      const FRONTEND_URL = isProduction
+        ? process.env.CLIENT_URL_PROD
+        : process.env.CLIENT_URL_DEV;
 
-      const clientUrl = process.env.CLIENT_URL as string;
-
-      // Create Stripe checkout session for subscription
+      // ✅ Create Stripe Checkout session
       const session = await stripeInstance.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
@@ -30,23 +101,27 @@ export const createSubscripeCheckoutSession = (dependencies: IDependencies) => {
             price_data: {
               currency: "INR",
               product_data: {
-                name: "Subscription Plan",
+                name: "MovieRule Premium Subscription",
               },
-              unit_amount: Math.floor(amount * 100),
+              unit_amount: Math.floor(amount * 100), // convert INR → paise
             },
             quantity: 1,
           },
         ],
-        mode: "payment", // Use "payment" mode for one-time payments
-        success_url: `${clientUrl}/subscriptionSuccess?session_id={CHECKOUT_SESSION_ID}&user_id=${userId}`,
-        cancel_url: `${clientUrl}/subscriptionCancel?session_id={CHECKOUT_SESSION_ID}`,
+        mode: "payment",
+        success_url: `${FRONTEND_URL}/subscriptionSuccess?session_id={CHECKOUT_SESSION_ID}&user_id=${userId}`,
+        cancel_url: `${FRONTEND_URL}/subscriptionCancel?session_id={CHECKOUT_SESSION_ID}`,
+        metadata: {
+          userId,
+          amount,
+        },
       });
 
-      // Update user with subscription details
+      // ✅ Save subscription initiation status
       const subscriptionData: SubscriptionData = {
         status: "initiated",
         sessionId: session.id,
-        amount: amount,
+        amount,
         paymentStatus: "pending",
       };
 
@@ -58,17 +133,16 @@ export const createSubscripeCheckoutSession = (dependencies: IDependencies) => {
         throw new Error("User subscription update failed");
       }
 
-      console.log(updatedUser, "user is updated here in backend");
+      console.log("✅ User subscription initialized:", updatedUser);
 
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         id: session.id,
-        message: "Subscription session created",
+        message: "Subscription checkout session created successfully",
       });
     } catch (error: any) {
-      console.error("Error creating subscription session", error);
+      console.error("❌ Error creating subscription session:", error);
       next(error);
     }
   };
 };
-
