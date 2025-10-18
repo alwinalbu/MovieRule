@@ -18,12 +18,23 @@ import movieRoutes from "../infrastructure/routes/movieRoutes";
 dotenv.config();
 
 const app: Application = express();
+app.set("trust proxy", 1);
 const server = http.createServer(app);
 
 // ✅ SOCKET.IO setup
+// const io = new SocketIOServer(server, {
+//   cors: {
+//     origin: process.env.CLIENT_URL,
+//     credentials: true,
+//   },
+// });
 const io = new SocketIOServer(server, {
   cors: {
-    origin: process.env.CLIENT_URL,
+    origin: [
+      "https://movie-rule.vercel.app",
+      "https://www.movie-rule.vercel.app",
+    ],
+    methods: ["GET", "POST"],
     credentials: true,
   },
 });
@@ -31,7 +42,16 @@ const io = new SocketIOServer(server, {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+// app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "https://movie-rule.vercel.app",
+      "https://www.movie-rule.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 // ✅ ROUTES
 app.use("/", routes(dependencies));
