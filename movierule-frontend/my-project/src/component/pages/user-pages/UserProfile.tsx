@@ -6,6 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Navbar from "./NavBar";
 import axios from "axios";
 import { config, URL } from "../../../config/constants";
+import { waitForCookies } from "../../../utlis/waitForCookies";
 
 
 const UserProfile: React.FC = () => {
@@ -28,6 +29,9 @@ const UserProfile: React.FC = () => {
   // ✅ Fetch full user details once when profile loads
   useEffect(() => {
     const fetchUser = async () => {
+
+      await waitForCookies();
+
       try {
         const { data } = await axios.get(`${URL}/getUser`, config);
 

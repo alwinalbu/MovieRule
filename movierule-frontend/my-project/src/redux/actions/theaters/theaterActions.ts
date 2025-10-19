@@ -6,6 +6,7 @@ import { TheaterEntity } from "../../../interfaces/theater/Theaterinterface";
 import { FormValuesOTP } from "../../../interfaces/user/FormValuesOTP";
 import { UpdateTheaterDetailsPayload } from "../../../interfaces/theater/UpdateTheaterDetailsPayload";
 import ImageUpload from "../../../component/imageUpoad/ImageUpload";
+import { waitForCookies } from "../../../utlis/waitForCookies";
 
 
 export const signUpTheater = createAsyncThunk(
@@ -58,6 +59,7 @@ export const loginTheater = createAsyncThunk(
 );
 
 export const getCurrentTheater = async () => {
+   await waitForCookies();
   try {
     const { data } = await axios.get(`${URL}/theater/getTheater`, config);
     console.log(data.data,"theater data in frontend ");

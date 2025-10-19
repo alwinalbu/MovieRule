@@ -6,6 +6,7 @@ import { commonRequest } from "../../../config/api";
 import { config, URL } from "../../../config/constants";
 import Navbar from "./NavBar";
 import axios from "axios";
+import { waitForCookies } from "../../../utlis/waitForCookies";
 
 const MyListPage: React.FC = () => {
   const [watchlist, setWatchlist] = useState<any[]>([]);
@@ -17,6 +18,9 @@ const MyListPage: React.FC = () => {
   // ✅ First fetch logged in user
  useEffect(() => {
    const fetchUser = async () => {
+
+    await waitForCookies();
+    
      try {
        const { data } = await axios.get(`${URL}/getUser`, config);
        

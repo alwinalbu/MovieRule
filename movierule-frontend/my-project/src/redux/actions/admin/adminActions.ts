@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { URL, config } from "../../../config/constants";
 import { IAdminLogin } from "../../../interfaces/admin/IAdminLogin";
+import { waitForCookies } from "../../../utlis/waitForCookies";
 
 export const loginAdmin = createAsyncThunk(
   "admin/loginAdmin",
@@ -31,6 +32,7 @@ export const loginAdmin = createAsyncThunk(
 //----------------------------------------------------------------------------------------
 
 export const getCurrentAdmin = async () => {
+   await waitForCookies();
   try {
     const { data } = await axios.get(`${URL}/admin/getAdmin`, config);
 

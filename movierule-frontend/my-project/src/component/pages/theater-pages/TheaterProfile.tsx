@@ -6,6 +6,7 @@ import { config, URL } from "../../../config/constants";
 import { RootState, AppDispatch } from "../../../redux/store";
 import { updateTheaterDetails } from "../../../redux/actions/theaters/theaterActions";
 import TheaterSidebar from "../../TheaterSidebar/TheaterSidebar";
+import { waitForCookies } from "../../../utlis/waitForCookies";
 
 export const TheaterProfile: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -26,6 +27,7 @@ export const TheaterProfile: React.FC = () => {
   // ✅ Fetch current theater details from backend
   useEffect(() => {
     const fetchTheater = async () => {
+       await waitForCookies();
       try {
         const { data } = await axios.get(`${URL}/theater/getTheater`, config);
         console.log(data, "✅ Theater data from backend");

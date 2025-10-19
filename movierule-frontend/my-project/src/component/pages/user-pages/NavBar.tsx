@@ -7,6 +7,7 @@ import { logout } from "../../../redux/actions/user/userActions";
 import { Menu, X } from "lucide-react";
 import axios from "axios";
 import { config, URL } from "../../../config/constants";
+import { waitForCookies } from "../../../utlis/waitForCookies";
 
 
 const Navbar: React.FC = () => {
@@ -17,11 +18,29 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
 
   // ✅ Fetch full user info for Navbar display
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const { data } = await axios.get(`${URL}/getUser`, config);
+  //       console.log(data, "✅ Full user data from backend");
+  //       setCurrentUser(data);
+  //     } catch (error) {
+  //       console.error("❌ Error fetching user details:", error);
+  //     }
+  //   };
+
+  //   fetchUser();
+  // }, []);
+
   useEffect(() => {
+    if (currentUser) return; 
+
     const fetchUser = async () => {
+      
+      await waitForCookies();
+      
       try {
         const { data } = await axios.get(`${URL}/getUser`, config);
-        console.log(data, "✅ Full user data from backend");
         setCurrentUser(data);
       } catch (error) {
         console.error("❌ Error fetching user details:", error);
@@ -29,7 +48,8 @@ const Navbar: React.FC = () => {
     };
 
     fetchUser();
-  }, []);
+  }, [currentUser]);
+
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);

@@ -17,6 +17,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { config, URL } from "../../config/constants";
 import { IMovie } from "../Movies/IMovie";
+import { waitForCookies } from "../../utlis/waitForCookies";
 
 const LandingPageMovieDetails: React.FC = () => {
   const { movieId } = useParams<{ movieId: string }>();
@@ -45,6 +46,9 @@ const LandingPageMovieDetails: React.FC = () => {
   // fetch user
   useEffect(() => {
     const fetchUser = async () => {
+      
+      await waitForCookies();
+
       try {
         const { data } = await axios.get(`${URL}/getUser`, config);
 

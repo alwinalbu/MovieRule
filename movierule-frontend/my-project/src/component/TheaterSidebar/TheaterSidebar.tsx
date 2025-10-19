@@ -15,6 +15,7 @@ import { AppDispatch } from "../../redux/store";
 import { logoutTheater } from "../../redux/actions/theaters/theaterActions";
 import axios from "axios";
 import { config, URL } from "../../config/constants";
+import { waitForCookies } from "../../utlis/waitForCookies";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -30,6 +31,7 @@ const TheaterSidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
   // ✅ Fetch full theater info on mount
   useEffect(() => {
     const fetchTheater = async () => {
+       await waitForCookies();
       try {
         const { data } = await axios.get(`${URL}/theater/getTheater`, config);
         console.log(data, "✅ Theater data in Sidebar");

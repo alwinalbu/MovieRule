@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
+import { waitForCookies } from "../../../utlis/waitForCookies";
 
 interface Seat {
   seatId: string;
@@ -77,7 +78,9 @@ const ScreenLayoutPage: React.FC = () => {
 
   // 🧠 Fetch current user
   useEffect(() => {
+
     const fetchUser = async () => {
+      await waitForCookies();
       try {
         const { data } = await axios.get(`${URL}/getUser`, config);
         setCurrentUser(data);

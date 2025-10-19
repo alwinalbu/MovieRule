@@ -70,6 +70,7 @@ import { getCurrentAuth } from "./utlis/auth";
 import PendingApproval from "./component/pages/theater-pages/PendingApproval";
 import ManageShowPage from "./component/pages/theater-pages/ManageShowPage";
 import LoaderWrapper from "./component/pages/LoaderWrapper";
+import { waitForCookies } from "./utlis/waitForCookies";
 
 /* ---------------- ProtectedRoute ---------------- */
 interface IProtectedRoute {
@@ -136,6 +137,9 @@ function App() {
 
   useEffect(() => {
     const fetchAuth = async () => {
+      
+      await waitForCookies();
+
       try {
         const payload = await getCurrentAuth();
         if (!payload) return;

@@ -171,11 +171,21 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: allowedOrigins,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        console.log("✅ Allowed CORS Origin:", origin);
+        callback(null, true);
+      } else {
+        console.warn("❌ Blocked CORS Origin:", origin);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 
 // ✅ Routes
 app.use("/", routes(dependencies));
@@ -192,6 +202,10 @@ app.get("/ping", (req: Request, res: Response) => {
     message: "✅ Backend is alive and reachable!",
     env: process.env.NODE_ENV,
   });
+});
+
+app.get("/debug-cookies", (req: Request, res: Response) => {
+  res.json({ cookies: req.cookies });
 });
 
 // ✅ 404 fallback 
