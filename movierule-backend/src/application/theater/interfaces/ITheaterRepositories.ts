@@ -21,7 +21,7 @@ export interface ITheaterRepositories {
   theaterGetAllScreens: (theaterId:string) => Promise<boolean | IScreen[]>;
   updateScreenById: (id: any, updateData: Partial<IScreen>) => Promise<IScreen | null>;
   getScreenById:(id: string)=>Promise<IScreen | null>;
-  updateTheaterScreenLayout:(screenId:string,layout:number[][])=>Promise<IScreen|null>;
+  updateTheaterScreenLayout:(screenId:string,layout: (any | null)[][] )=>Promise<IScreen|null>;
   theaterSaveSnack:(data: ISnack)=> Promise<ISnack | null>;
   fetchSnacks:(theaterId: string)=>Promise<ISnack[]>
   getAllBookingsByID:(theaterId: string)=>Promise<IBooking[]>

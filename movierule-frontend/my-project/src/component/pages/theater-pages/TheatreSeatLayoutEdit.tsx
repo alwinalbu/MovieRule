@@ -7,15 +7,16 @@ import rSeat from "../../../assets/images/removeseat.svg";
 import { Button, Spinner } from "@nextui-org/react";
 import { commonRequest } from "../../../config/api";
 import { config } from "../../../config/constants";
+import _ from "lodash"; 
 
 const TheatreSeatLayoutEdit = () => {
   const { screenId } = useParams();
   const navigate = useNavigate();
-  const [layout, setLayout] = useState<(number | null)[][]>([]);
-  const [originalLayout, setOriginalLayout] = useState<(number | null)[][]>([]);
+  const [layout, setLayout] = useState<(any | null)[][]>([]);
+  const [originalLayout, setOriginalLayout] = useState<(any | null)[][]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch Screen Layout
+  // 🟢 Fetch Screen Layout
   const fetchScreenData = async () => {
     try {
       const response = await commonRequest(
@@ -23,9 +24,14 @@ const TheatreSeatLayoutEdit = () => {
         `/theater/screen-layout/${screenId}/`,
         config
       );
+
       const screenData = response.data;
-      setLayout(screenData.layout);
-      setOriginalLayout(screenData.layout);
+
+      // 🟢 Use `baseLayout` (original) for restoring seats
+      setLayout(_.cloneDeep(screenData.layout));
+      setOriginalLayout(
+        _.cloneDeep(screenData.baseLayout || screenData.layout)
+      );
     } catch (error) {
       console.error(error);
       toast.error("Failed to load screen layout");
@@ -38,20 +44,22 @@ const TheatreSeatLayoutEdit = () => {
     fetchScreenData();
   }, [screenId]);
 
-  // Toggle Seat
+  // 🟢 Toggle Seat between available <-> removed
   const handleSeatClick = (rowIndex: number, colIndex: number) => {
     const newLayout = layout.map((row, rowIdx) =>
-      row.map((seatId, colIdx) => {
+      row.map((seat, colIdx) => {
         if (rowIdx === rowIndex && colIdx === colIndex) {
-          return seatId ? null : originalLayout[rowIdx][colIdx];
+          // If seat is available, make it null
+          // If seat is null (removed), restore from the permanent original layout
+          return seat ? null : _.cloneDeep(originalLayout[rowIdx][colIdx]);
         }
-        return seatId;
+        return seat;
       })
     );
     setLayout(newLayout);
   };
 
-  // Save Layout
+  // 🟢 Save the current layout
   const handleSave = async () => {
     try {
       const response = await commonRequest(
@@ -60,6 +68,7 @@ const TheatreSeatLayoutEdit = () => {
         config,
         { layout }
       );
+
       if (response.status === 200) {
         toast.success("Layout saved successfully ✅");
         navigate(-1);
@@ -72,9 +81,9 @@ const TheatreSeatLayoutEdit = () => {
     }
   };
 
-  // Reset to Original
+  // 🟢 Reset back to original layout
   const handleReset = () => {
-    setLayout(originalLayout);
+    setLayout(_.cloneDeep(originalLayout));
     toast("Layout reset to original", { icon: "↩️" });
   };
 
@@ -88,7 +97,6 @@ const TheatreSeatLayoutEdit = () => {
         </p>
       </div>
 
-      {/* Loading Spinner */}
       {loading ? (
         <div className="flex justify-center items-center h-60">
           <Spinner size="lg" />
@@ -99,10 +107,10 @@ const TheatreSeatLayoutEdit = () => {
           <div className="flex flex-col gap-1 sm:gap-2 items-center justify-center mb-6 overflow-x-auto">
             {layout.map((row, rowIndex) => (
               <div key={rowIndex} className="flex gap-1 sm:gap-2">
-                {row.map((seatId, colIndex) => (
+                {row.map((seat, colIndex) => (
                   <img
                     key={colIndex}
-                    src={seatId ? seatImg : rSeat}
+                    src={seat ? seatImg : rSeat}
                     onClick={() => handleSeatClick(rowIndex, colIndex)}
                     className="w-5 h-5 sm:w-8 sm:h-8 cursor-pointer hover:scale-110 transition-transform"
                     alt={`Seat ${rowIndex}-${colIndex}`}
@@ -130,7 +138,7 @@ const TheatreSeatLayoutEdit = () => {
               <img
                 src={seatImg}
                 className="w-4 h-4 sm:w-6 sm:h-6"
-                alt="Available Seat"
+                alt="Available"
               />
               <span>Available</span>
             </div>
@@ -138,7 +146,7 @@ const TheatreSeatLayoutEdit = () => {
               <img
                 src={rSeat}
                 className="w-4 h-4 sm:w-6 sm:h-6"
-                alt="Removed Seat"
+                alt="Removed"
               />
               <span>Removed</span>
             </div>
@@ -146,17 +154,10 @@ const TheatreSeatLayoutEdit = () => {
 
           {/* Action Buttons */}
           <div className="flex justify-center gap-3 sm:gap-4 mt-6 flex-wrap">
-            <Button
-              onClick={handleReset}
-              variant="bordered"
-              className="text-gray-300 border-gray-500 hover:bg-gray-800 px-3 sm:px-5 py-1 sm:py-2 text-xs sm:text-sm"
-            >
+            <Button onClick={handleReset} variant="bordered">
               Reset
             </Button>
-            <Button
-              onClick={handleSave}
-              className="bg-red-600 hover:bg-red-700 text-white px-4 sm:px-6 py-1 sm:py-2 text-xs sm:text-sm"
-            >
+            <Button onClick={handleSave} className="bg-red-600 text-white">
               Save Layout
             </Button>
           </div>
@@ -167,3 +168,4 @@ const TheatreSeatLayoutEdit = () => {
 };
 
 export default TheatreSeatLayoutEdit;
+

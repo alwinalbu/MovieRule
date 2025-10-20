@@ -9,7 +9,7 @@ export * from './theaterSaveShow';
 export * from './theaterGetAllShows';
 export * from './theaterSaveScreen';
 export * from './theaterGetAllScreens';
-export * from './theaterUpdateScreenById';
+export * from './updateScreenById';
 export * from './getScreenById';
 export * from './updateTheaterScreenLayout';
 export * from './theaterSaveSnack';

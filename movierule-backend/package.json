@@ -20,6 +20,7 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "crypto-ts": "^1.0.2",
+    "dayjs": "^1.11.18",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "google-auth-library": "^9.11.0",
@@ -30,7 +31,9 @@
     "nodemailer": "^6.9.14",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
-    "stripe": "^16.5.0"
+    "stripe": "^16.5.0",
+    "timezone": "^1.0.23",
+    "utc": "^0.1.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

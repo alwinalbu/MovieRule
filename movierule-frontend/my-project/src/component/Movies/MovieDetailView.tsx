@@ -37,6 +37,9 @@ const MovieDetail: React.FC = () => {
     }
   }, [movieId]);
 
+  console.log(movie,"inside the movie deatils for adding by admin");
+  console.log(trailerKey,"movie trailer key");
+  
   
 
   if (!movie) {

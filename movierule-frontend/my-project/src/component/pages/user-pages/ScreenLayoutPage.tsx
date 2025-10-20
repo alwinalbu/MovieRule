@@ -337,11 +337,56 @@ const ScreenLayoutPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-black flex flex-col items-center py-4 text-white">
       {/* 🎬 Seat Layout */}
-      {layout.map((row, r) => (
+      {/* {layout.map((row, r) => (
         <div key={r} className="flex mb-2 items-center">
           <span className="mr-3">{String.fromCharCode(65 + r)}</span>
           {row.map((seat, c) => {
             const status = getSeatStatus(seat.seatId);
+            return (
+              <motion.div
+                key={c}
+                whileHover={status === "available" ? { scale: 1.1 } : {}}
+                animate={
+                  status === "selected"
+                    ? {
+                        scale: [1, 1.1, 1],
+                        boxShadow: "0 0 12px rgba(34,197,94,0.8)",
+                      }
+                    : { scale: 1, boxShadow: "none" }
+                }
+                transition={{
+                  duration: 0.6,
+                  repeat: status === "selected" ? Infinity : 0,
+                }}
+                className={`w-8 h-8 mr-2 rounded-md flex items-center justify-center text-xs font-bold ${
+                  status === "selected"
+                    ? "bg-green-500 text-black"
+                    : status === "locked"
+                    ? "bg-yellow-500 opacity-60 cursor-not-allowed"
+                    : status === "sold"
+                    ? "bg-red-600 opacity-70 cursor-not-allowed"
+                    : "bg-gray-500 hover:bg-gray-400 cursor-pointer"
+                }`}
+                onClick={() => handleSeatClick(seat.seatId)}
+              >
+                {seat.seatId.replace(/[^0-9]/g, "")}
+              </motion.div>
+            );
+          })}
+        </div>
+      ))} */}
+      {layout.map((row, r) => (
+        <div key={r} className="flex mb-2 items-center">
+          <span className="mr-3">{String.fromCharCode(65 + r)}</span>
+
+          {row.map((seat, c) => {
+            // 🧩 FIX: if seat is null, show empty space
+            if (!seat) {
+              return <div key={c} className="w-8 h-8 mr-2 bg-transparent" />;
+            }
+
+            const status = getSeatStatus(seat.seatId);
+
             return (
               <motion.div
                 key={c}

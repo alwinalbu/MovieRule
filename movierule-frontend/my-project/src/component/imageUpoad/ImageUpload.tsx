@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const ImageUpload = async (image: File) => {
-  const preset_key = "ml_default"; // Use the default preset key
+  const preset_key = "unsigned_upload";
   const cloud_name = import.meta.env.VITE_REACT_APP_CLD_USER_NAME;
 
   // Check if environment variables are defined

@@ -171,7 +171,7 @@ function ManageSnacks() {
             {snacks.map((snack) => (
               <Card
                 key={snack._id}
-                className="bg-gray-800 border border-gray-700 hover:scale-105 transition"
+                className="bg-gray-800 border border-gray-700 hover:scale-105 transition text-white"
               >
                 <CardBody className="overflow-hidden p-0">
                   <img

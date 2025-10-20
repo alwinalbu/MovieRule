@@ -2,7 +2,5 @@ import { IScreen } from "../../../infrastructure/database/mogodb/models/screenSc
 
 
 export interface ITheaterUpdateScreenLayoutUseCase {
-
- execute(screenId: string,layout: number[][]): Promise<IScreen | null>;
- 
+  execute(screenId: string, layout: (any | null)[][]): Promise<IScreen | null>;
 }

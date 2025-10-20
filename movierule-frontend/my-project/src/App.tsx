@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate,useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./redux/store";
 
@@ -128,16 +128,39 @@ const ProtectedRoute: React.FC<IProtectedRoute> = ({ element, role }) => {
   return element;
 };
 
-
 /* ---------------- App Component ---------------- */
 function App() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const location = useLocation();
   // const [initialLoading, setInitialLoading] = useState(true);
+
+  const user = useSelector((state: RootState) => state.user.user);
+  const theaterOwner = useSelector(
+    (state: RootState) => state.theater.theaterOwner
+  );
+  const admin = useSelector((state: RootState) => state.admin.admin);
+
+  const publicRoutes = [
+    "/",
+    "/login",
+    "/signup",
+    "/verify-otp",
+    "/forgetpassword",
+    "/reset-password",
+    "/about",
+    "/contact",
+    "/theater/login",
+    "/theater/signup",
+    "/theater/verifyOtp",
+    "/theater/forgetpassword",
+    "/theater/theater-reset-password",
+    "/admin/login",
+  ];
+  
 
   useEffect(() => {
     const fetchAuth = async () => {
-      
       await waitForCookies();
 
       try {
@@ -173,13 +196,20 @@ function App() {
       } catch (err) {
         console.error("Failed to fetch auth state:", err);
       }
-      
     };
 
-    fetchAuth();
-    // const timer = setTimeout(() => setInitialLoading(false), 5000);
-    // return () => clearTimeout(timer);
-  }, [dispatch, navigate]);
+    if (!publicRoutes.includes(location.pathname)) {
+      fetchAuth();
+    }
+  }, [dispatch, navigate, location.pathname]);
+
+  useEffect(() => {
+    if (publicRoutes.includes(location.pathname)) {
+      if (user) navigate("/homepage", { replace: true });
+      else if (theaterOwner) navigate("/theater/dashboard", { replace: true });
+      else if (admin) navigate("/admin/home", { replace: true });
+    }
+  }, [user, theaterOwner, admin, location.pathname, navigate]);
 
   // if (initialLoading) return <MovieRuleLoader />;
 
@@ -352,3 +382,4 @@ function App() {
 }
 
 export default App;
+
