@@ -40,7 +40,8 @@ interface ScreenData {
   price: number;
   image: string;
   theaterId: TheaterEntity;
-  layout: Seat[][];
+  // layout: Seat[][];
+  layout: (Seat | null)[][];
 }
 
 const ScreenLayoutPage: React.FC = () => {
@@ -341,6 +342,9 @@ const ScreenLayoutPage: React.FC = () => {
         <div key={r} className="flex mb-2 items-center">
           <span className="mr-3">{String.fromCharCode(65 + r)}</span>
           {row.map((seat, c) => {
+             if (!seat) {
+               return <div key={c} className="w-8 h-8 mr-2" />;
+             }
             const status = getSeatStatus(seat.seatId);
             return (
               <motion.div
